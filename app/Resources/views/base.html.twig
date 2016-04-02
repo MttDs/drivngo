@@ -4,11 +4,9 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% stylesheets
-    'css/*'
-    filter='cssrewrite' output='css/compiled/app.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
-        {% stylesheets '@AppBundle/Resources/public/css/style.css' filter='cssrewrite' %}
+            'css/*'
+            '@AppBundle/Resources/public/css/style.css'
+            filter='cssrewrite' output='css/compiled/app.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
