@@ -1,1 +1,9 @@
-Hello World!
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    Admin
+{% elseif is_granted('ROLE_MANAGER') %}
+    Manager
+{% elseif is_granted('ROLE_SECRETARY') %}
+    Secretaire
+{% elseif is_granted('ROLE_INSTRUCTOR') %}
+    Instructeur
+{% endif %}
