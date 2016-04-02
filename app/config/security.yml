@@ -7,7 +7,7 @@ security:
         ROLE_INSTRUCTOR:  ROLE_USER
         ROLE_SECRETARY:   ROLE_USER
         ROLE_MANAGER:     [ROLE_USER, ROLE_INSTRUCTOR]
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_MANAGER
 
     providers:
         fos_userbundle:
