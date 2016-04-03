@@ -1,7 +1,7 @@
 back:
     resource: "@BackBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /dashboard
 
 app:
     resource: "@AppBundle/Controller/"
