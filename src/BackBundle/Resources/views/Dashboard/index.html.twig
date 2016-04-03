@@ -1,9 +1,17 @@
-{% if is_granted('ROLE_SUPER_ADMIN') %}
-    Admin
-{% elseif is_granted('ROLE_MANAGER') %}
-    Manager
-{% elseif is_granted('ROLE_SECRETARY') %}
-    Secretaire
-{% elseif is_granted('ROLE_INSTRUCTOR') %}
-    Instructeur
-{% endif %}
+{% extends "::dashboard.html.twig" %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Tableau de bord <small>Statistiques</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Tableau de bord
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
