@@ -14,4 +14,16 @@
             </ol>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            {% if is_granted('ROLE_MANAGER') %}
+                <p>Vous n'avez pas encore d'auto école. Démarrer maintenant !</p>
+                <button class="btn btn-primary btn-lg btn-block">Gérer mon auto école en ligne</button>
+            {% elseif is_granted('ROLE_USER') %}
+                <p>Vous n'etes pas encore inscrit. Démarrer maintenant votre apprentissage</p>
+                <button class="btn btn-primary btn-lg btn-block">Trouver une auto école</button>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
