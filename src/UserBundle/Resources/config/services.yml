@@ -1,4 +1,10 @@
 services:
-#    user.example:
-#        class: UserBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    app.form.registration:
+        class: UserBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    app.registration_event:
+        class: UserBundle\EventListener\SetAccountTypeListener
+        arguments: []
+        tags:
+            - { name: kernel.event_subscriber }
