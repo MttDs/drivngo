@@ -194,6 +194,18 @@
         </nav>
 
         <div id="page-wrapper">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('alert') %}
+                <div class="alert alert-danger">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
             <div class="container-fluid">
                 {% block body %}{% endblock %}
             </div>
