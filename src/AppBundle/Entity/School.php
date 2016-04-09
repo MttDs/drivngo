@@ -57,6 +57,14 @@ class School
     /**
      * @var string
      *
+     * @ORM\Column(name="phone_number", type="string", length=255)
+     * @Assert\NotNull()
+     */
+    private $phone_number;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      * @Assert\NotNull()
      */
@@ -211,10 +219,33 @@ class School
     /**
      * Get user
      *
-     * @return \UserBundle\Entity\User 
+     * @return \UserBundle\Entity\User
      */
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set phone_number
+     *
+     * @param string $phoneNumber
+     * @return School
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phone_number = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phone_number
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
     }
 }

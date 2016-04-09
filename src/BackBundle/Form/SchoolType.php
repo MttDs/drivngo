@@ -15,6 +15,7 @@ class SchoolType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('phone_number', TextType::class)
             ->add('address', TextType::class)
             ->add('city', TextType::class)
             ->add('postcode', TextType::class)
