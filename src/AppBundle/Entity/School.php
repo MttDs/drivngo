@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * School
@@ -25,6 +26,7 @@ class School
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\NotNull()
      */
     private $address;
 
@@ -32,6 +34,7 @@ class School
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * @Assert\NotNull()
      */
     private $city;
 
@@ -39,6 +42,7 @@ class School
      * @var string
      *
      * @ORM\Column(name="postcode", type="string", length=10)
+     * @Assert\NotNull()
      */
     private $postcode;
 
@@ -46,6 +50,7 @@ class School
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotNull()
      */
     private $name;
 
@@ -53,14 +58,22 @@ class School
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotNull()
      */
     private $description;
 
+    /**
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="schools")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull()
+     */
+    private $user;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,7 +96,7 @@ class School
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -106,7 +119,7 @@ class School
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -129,7 +142,7 @@ class School
     /**
      * Get postcode
      *
-     * @return string 
+     * @return string
      */
     public function getPostcode()
     {
@@ -152,7 +165,7 @@ class School
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -175,10 +188,33 @@ class School
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     * @return School
+     */
+    public function setUser(\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

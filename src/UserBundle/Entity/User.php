@@ -32,6 +32,11 @@ class User extends BaseUser
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\School", mappedBy="user")
+     */
+    private $schools;
+
     public function __construct()
     {
         parent::__construct();
