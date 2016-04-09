@@ -1,0 +1,30 @@
+{% extends "dashboard.html.twig" %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Votre auto école <small>{{ school.name }}</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> {{ school.name }}
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ school.name }}</h2>
+            <p>{{ school.description}}</p>
+
+            <address>
+              {{ school.address }}<br>
+              {{ school.city }}, {{ school.postcode }}<br>
+              <abbr title="Phone">P:</abbr> {{ school.phoneNumber }}
+            </address>
+        </div>
+    </div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace BackBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Controller\BaseController;
@@ -63,5 +64,19 @@ class SchoolsController extends BaseController
                 'form' => $form->createView()
             )
         );
+    }
+
+    /**
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="back_schools_show")
+     * @ParamConverter("school", class="AppBundle:School", options={"id" = "id"})
+     * @Method({"GET"})
+     */
+    public function showAction(Request $request, School $school)
+    {
+        return $this->render('BackBundle:Schools:show.html.twig', array(
+                'school' => $school
+            )
+        );
+
     }
 }
