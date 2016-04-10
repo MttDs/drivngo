@@ -20,7 +20,7 @@ class SchoolsController extends BaseController
      * @Route("/new", name="back_schools_new")
      * @Method({"GET"})
      */
-    public function indexAction()
+    public function newAction()
     {
         $school = new School();
         $form = $this->createForm(SchoolType::class, $school);
