@@ -32,6 +32,11 @@ class User extends BaseUser
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\School", mappedBy="user")
+     */
+    private $schools;
+
     public function __construct()
     {
         parent::__construct();
@@ -81,5 +86,38 @@ class User extends BaseUser
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * Add schools
+     *
+     * @param \AppBundle\Entity\School $schools
+     * @return User
+     */
+    public function addSchool(\AppBundle\Entity\School $schools)
+    {
+        $this->schools[] = $schools;
+
+        return $this;
+    }
+
+    /**
+     * Remove schools
+     *
+     * @param \AppBundle\Entity\School $schools
+     */
+    public function removeSchool(\AppBundle\Entity\School $schools)
+    {
+        $this->schools->removeElement($schools);
+    }
+
+    /**
+     * Get schools
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSchools()
+    {
+        return $this->schools;
     }
 }

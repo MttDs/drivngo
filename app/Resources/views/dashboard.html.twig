@@ -156,6 +156,23 @@
                     <li class="active">
                         <a href="#"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+                    {% if is_granted('ROLE_MANAGER') %}
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#schools"><i class="fa fa-fw fa-list"></i> Mes auto écoles <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="schools" class="collapse">
+                                {% for school in app.user.schools %}
+                                    <li>
+                                        <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
+                                    </li>
+                                {% endfor %}
+                                <li>
+                                    <a href="{{ path('back_schools_new') }}">Créer une auto école</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <li>
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
@@ -194,6 +211,18 @@
         </nav>
 
         <div id="page-wrapper">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('alert') %}
+                <div class="alert alert-danger">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+
             <div class="container-fluid">
                 {% block body %}{% endblock %}
             </div>
