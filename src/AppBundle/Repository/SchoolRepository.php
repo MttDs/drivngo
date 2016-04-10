@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class SchoolRepository extends EntityRepository
 {
+    public function findSchoolFromManager(array $params) {
+        $qb = $this->_em->createQueryBuilder()
+           ->select('s')
+           ->from($this->_entityName, 's')
+           ->where('s.user = :userId')
+           ->andWhere('s.id = :id')
+           ->setParameter('userId', $params['userId'])
+           ->setParameter('id', $params['id']);
+
+        return $qb->getQuery()
+                  ->getOneOrNullResult();
+    }
 }
