@@ -17,7 +17,7 @@
 
     <div class="row">
         <div class="col-md-12">
-        {{ form_start(form, { attr: { action: path('back_schools_create') }}) }}
+        {{ form_start(form, { attr: { action: path('back_schools_update', { id: school.id }) }}) }}
             <div class="form-group">
                 {{ form_label(form.name) }}
                 {{ form_widget(form.name, { attr: { class: 'form-control', placeholder: 'Nom'}}) }}

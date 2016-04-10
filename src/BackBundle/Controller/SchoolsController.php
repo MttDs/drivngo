@@ -87,7 +87,48 @@ class SchoolsController extends BaseController
      */
     public function editAction(School $school)
     {
-        $form = $this->createForm(SchoolType::class, $school);
+        $form = $this->createForm(SchoolType::class, $school, array(
+                'method' => 'PUT'
+            )
+        );
+
+        return $this->render('BackBundle:Schools:edit.html.twig', array(
+                'school' => $school,
+                'form'   => $form->createView()
+            )
+        );
+    }
+
+    /**
+     * @Route("/{id}/update", requirements={"id" = "\d+"}, name="back_schools_update")
+     * @ParamConverter("school_manager")
+     * @Method({"PUT"})
+     */
+    public function updateAction(Request $request, School $school)
+    {
+        $form = $this->createForm(SchoolType::class, $school, array(
+                'method' => 'PUT'
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($school);
+            $em->flush();
+
+            $this->setFlash('notice', 'Auto école modifiée !');
+
+            return $this->redirect(
+                $this->generateUrl('back_schools_show', array(
+                        'id' => $school->getId()
+                    )
+                )
+            );
+        }
+
+        $this->setFlash('alert', 'Impossible de modifier cette auto école');
 
         return $this->render('BackBundle:Schools:edit.html.twig', array(
                 'school' => $school,
