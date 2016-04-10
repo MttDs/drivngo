@@ -79,4 +79,20 @@ class SchoolsController extends BaseController
         );
 
     }
+
+    /**
+     * @Route("/{id}/edit", requirements={"id" = "\d+"}, name="back_schools_edit")
+     * @ParamConverter("school_manager")
+     * @Method({"GET"})
+     */
+    public function editAction(School $school)
+    {
+        $form = $this->createForm(SchoolType::class, $school);
+
+        return $this->render('BackBundle:Schools:edit.html.twig', array(
+                'school' => $school,
+                'form'   => $form->createView()
+            )
+        );
+    }
 }
