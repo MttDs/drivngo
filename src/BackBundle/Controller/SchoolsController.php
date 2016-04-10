@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Controller\BaseController;
@@ -19,6 +20,7 @@ class SchoolsController extends BaseController
     /**
      * @Route("/new", name="back_schools_new")
      * @Method({"GET"})
+     * @Security("has_role('ROLE_MANAGER')")
      */
     public function newAction()
     {
@@ -33,6 +35,7 @@ class SchoolsController extends BaseController
 
     /**
      * @Route("/create", name="back_schools_create")
+     * @Security("has_role('ROLE_MANAGER')")
      * @Method({"POST"})
      */
     public function createAction(Request $request)
@@ -88,6 +91,7 @@ class SchoolsController extends BaseController
 
     /**
      * @Route("/{id}/edit", requirements={"id" = "\d+"}, name="back_schools_edit")
+     * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
      * @Method({"GET"})
      */
@@ -107,6 +111,7 @@ class SchoolsController extends BaseController
 
     /**
      * @Route("/{id}/update", requirements={"id" = "\d+"}, name="back_schools_update")
+     * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
      * @Method({"PUT"})
      */
@@ -145,6 +150,7 @@ class SchoolsController extends BaseController
 
     /**
      * @Route("/{id}/destroy", requirements={"id" = "\d+"}, name="back_schools_destroy")
+     * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
      * @Method({"DELETE"})
      */

@@ -27,16 +27,18 @@
             </address>
         </div>
     </div>
+    {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn btn-primary" href="{{ path('back_schools_edit', { id: school.id }) }}">Editer</a>
+            </div>
+            <div class="col-md-6 text-right">
+                {{ form_start(destroyForm, { action: path('back_schools_destroy', { id: school.id }) }) }}
+                    {{ form_widget(destroyForm._token) }}
+                    <button class="btn btn-danger">Supprimer</button>
+                {{ form_end(destroyForm, { render_rest: false }) }}
+            </div>
+        </div>
+    {% endif %}
 
-    <div class="row">
-        <div class="col-md-6">
-            <a class="btn btn-primary" href="{{ path('back_schools_edit', { id: school.id }) }}">Editer</a>
-        </div>
-        <div class="col-md-6 text-right">
-            {{ form_start(destroyForm, { action: path('back_schools_destroy', { id: school.id }) }) }}
-                {{ form_widget(destroyForm._token) }}
-                <button class="btn btn-danger">Supprimer</button>
-            {{ form_end(destroyForm, { render_rest: false }) }}
-        </div>
-    </div>
 {% endblock %}
