@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DashboardController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="back_dashboard_home")
      */
     public function indexAction()
     {

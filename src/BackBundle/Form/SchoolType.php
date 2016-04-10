@@ -25,7 +25,8 @@ class SchoolType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\School'
+            'data_class' => 'AppBundle\Entity\School',
+            'intention'   => 'school_type'
         ));
     }
 }

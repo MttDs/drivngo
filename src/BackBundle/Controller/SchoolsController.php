@@ -73,8 +73,14 @@ class SchoolsController extends BaseController
      */
     public function showAction(Request $request, School $school)
     {
+        $destroyForm = $this->createForm(SchoolType::class, $school, array(
+                'method' => 'DELETE'
+            )
+        );
+
         return $this->render('BackBundle:Schools:show.html.twig', array(
-                'school' => $school
+                'school'      => $school,
+                'destroyForm' => $destroyForm->createView()
             )
         );
 
@@ -133,6 +139,35 @@ class SchoolsController extends BaseController
         return $this->render('BackBundle:Schools:edit.html.twig', array(
                 'school' => $school,
                 'form'   => $form->createView()
+            )
+        );
+    }
+
+    /**
+     * @Route("/{id}/destroy", requirements={"id" = "\d+"}, name="back_schools_destroy")
+     * @ParamConverter("school_manager")
+     * @Method({"DELETE"})
+     */
+    public function destroyAction(Request $request, School $school) {
+        $token = $request->request->get('school')['_token'];
+        $csrf = $this->get('form.csrf_provider');
+
+        if ($csrf->isCsrfTokenValid('school_type', $token)) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($school);
+            $em->flush();
+
+            $this->setFlash('notice', 'Auto école supprimée');
+
+            return $this->redirect($this->generateUrl('back_dashboard_home'));
+        }
+
+        $this->setFlash('alert', 'Impossible de supprimer cette auto école');
+
+        return $this->redirect(
+            $this->generateUrl('back_schools_show', array(
+                    'id' => $school->getId()
+                )
             )
         );
     }

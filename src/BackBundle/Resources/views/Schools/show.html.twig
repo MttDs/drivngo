@@ -27,4 +27,16 @@
             </address>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6 text-right">
+            {{ form_start(destroyForm, { action: path('back_schools_destroy', { id: school.id }) }) }}
+                {{ form_widget(destroyForm._token) }}
+                <button class="btn btn-danger">Supprimer</button>
+            {{ form_end(destroyForm, { render_rest: false }) }}
+        </div>
+    </div>
 {% endblock %}
