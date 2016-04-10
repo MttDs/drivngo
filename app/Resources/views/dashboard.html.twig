@@ -161,14 +161,13 @@
                             <a href="javascript:;" data-toggle="collapse" data-target="#schools"><i class="fa fa-fw fa-list"></i> Mes auto écoles <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="schools" class="collapse">
                                 {% for school in app.user.schools %}
-                                <li>
-                                    <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
-                                </li>
-                                {% else %}
+                                    <li>
+                                        <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
+                                    </li>
+                                {% endfor %}
                                 <li>
                                     <a href="{{ path('back_schools_new') }}">Créer une auto école</a>
                                 </li>
-                                {% endfor %}
                             </ul>
                         </li>
                     <li>
