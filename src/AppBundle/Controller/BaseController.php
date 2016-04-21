@@ -10,4 +10,9 @@ abstract class BaseController extends Controller
     {
         return $this->get('request')->getSession()->getFlashBag()->add($type, $message);
     }
+
+    protected function getPaginator()
+    {
+        return $this->get('knp_paginator');
+    }
 }
