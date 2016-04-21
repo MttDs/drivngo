@@ -12,7 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class SchoolRepository extends EntityRepository
 {
-    public function findSchoolFromManager(array $params) {
+
+    public function getSchoolsQuery()
+    {
+        $qb = $this->_em->createQueryBuilder()
+           ->select('s')
+           ->from($this->_entityName, 's')
+           ->orderBy('s.name');
+
+        return $qb->getQuery();
+    }
+    public function findSchoolFromManager(array $params)
+    {
         $qb = $this->_em->createQueryBuilder()
            ->select('s')
            ->from($this->_entityName, 's')
