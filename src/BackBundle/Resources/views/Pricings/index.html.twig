@@ -22,7 +22,7 @@
         <div class="col-md-12">
             <h2>Ajouter un tarif</h2>
 
-            {{ form_start(form) }}
+            {{ form_start(form, { attr: { action: path('back_schools_pricings_create', { 'school_id': school.id }) }}) }}
                 <div class="form-group">
                     {{ form_label(form.name) }}
                     {{ form_widget(form.name, { attr: { class: 'form-control', placeholder: 'Titre du tarif'}}) }}
@@ -40,6 +40,24 @@
                 </div>
                 <button class="btn btn-primary" type="submit">Créer</button>
             {{ form_end(form) }}
+
+            <h2>Les tarif</h2>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for pricing in school.pricings %}
+                            <tr>
+                                <td>{{ pricing.name }} </td>
+                                <td>{{ pricing.price }} €</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
         </div>
     </div>
 {% endblock %}

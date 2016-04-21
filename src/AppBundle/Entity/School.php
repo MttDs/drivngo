@@ -253,4 +253,44 @@ class School
     {
         return $this->phone_number;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pricings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add pricings
+     *
+     * @param \AppBundle\Entity\Pricing $pricings
+     * @return School
+     */
+    public function addPricing(\AppBundle\Entity\Pricing $pricings)
+    {
+        $this->pricings[] = $pricings;
+
+        return $this;
+    }
+
+    /**
+     * Remove pricings
+     *
+     * @param \AppBundle\Entity\Pricing $pricings
+     */
+    public function removePricing(\AppBundle\Entity\Pricing $pricings)
+    {
+        $this->pricings->removeElement($pricings);
+    }
+
+    /**
+     * Get pricings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPricings()
+    {
+        return $this->pricings;
+    }
 }

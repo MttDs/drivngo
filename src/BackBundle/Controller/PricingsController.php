@@ -33,4 +33,37 @@ class PricingsController extends BaseController
             )
         );
     }
+
+    /**
+     * @Route("/pricings/create", name="back_schools_pricings_create")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request, School $school) {
+        $pricing = new Pricing();
+        $pricing->setSchool($school);
+        $pricing->setActive(true);
+        $form = $this->createForm(PricingType::class, $pricing);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($pricing);
+
+            $em->flush();
+
+            $this->setFlash('notice', 'Nouveau tarif ajouté');
+            return $this->redirect($this->generateUrl('back_schools_pricings', array('school_id' => $school->getId())));
+        }
+
+        $this->setFlash('alert', "Impossible d'ajouter ce tarif");
+
+        return $this->render('BackBundle:Pricings:index.html.twig', array(
+                'school' => $school,
+                'form' => $form->createView()
+            )
+        );
+    }
 }
