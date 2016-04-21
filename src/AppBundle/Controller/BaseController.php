@@ -15,4 +15,9 @@ abstract class BaseController extends Controller
     {
         return $this->get('knp_paginator');
     }
+
+    protected function getRepository($name)
+    {
+        return $this->getDoctrine()->getManager()->getRepository($name);
+    }
 }
