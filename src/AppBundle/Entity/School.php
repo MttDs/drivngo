@@ -79,6 +79,11 @@ class School
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pricing", mappedBy="school")
+     */
+    private $pricings;
+
+    /**
      * Get id
      *
      * @return integer
