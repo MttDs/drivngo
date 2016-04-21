@@ -21,7 +21,7 @@ class SchoolManagerParamConverter implements ParamConverterInterface
         $this->entityManager = $entityManager;
     }
 
-    function supports(ParamConverter $configuration)
+    public function supports(ParamConverter $configuration)
     {
         if ('school_manager' !== $configuration->getName()) {
             return false;
@@ -30,13 +30,22 @@ class SchoolManagerParamConverter implements ParamConverterInterface
         return true;
     }
 
-    function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         $schoolRepo = $this->entityManager->getRepository('AppBundle:School');
         $user = $this->securityContext->getToken()->getUser();
 
+        $id = null;
+
+        if (!is_null($request->get('id'))) {
+            $id = $request->get('school_id');
+        }
+        else if (!is_null($request->get('school_id'))) {
+            $id = $request->get('school_id');
+        }
+
         $params = array(
-            'id'     => $request->get('id'),
+            'id'     => $id,
             'userId' => $user->getId()
         );
 
