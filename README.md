@@ -19,7 +19,14 @@ $ run http://127.0.0.1:8000/
 
 ## Pages
 
-* all the FosUserBundle routes (/login, /register, ...)
+### Front
+
+* /
+* /auto-ecoles
+* /auto-ecoles/{id}
+
+### Back
+
 * (logged) /dashboard
 * (logged) /dashboard/schools/{id}
 * (manager) /dashboard/schools/new
@@ -27,6 +34,18 @@ $ run http://127.0.0.1:8000/
 * (manager) /dashboard/schools/{id}/update
 * (manager) /dashboard/schools/{id}/destroy
 * (manager) /dashboard/schools/create
+* (manager) /dashboard/schools/{id}/pricings
+
+### Bundle 
+
+* all the FosUserBundle routes (/login, /register, ...)
+
+## Fixtures
+
+* Users 
+* Schools
+* PricingCategories
+* Pricings
 
 ## Admin design
 
