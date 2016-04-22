@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<h1>Liste des auto écoles</h1>
+
+    {% for school in schools %}
+        <h2>{{ school.name }}</h2>
+        <p>{{ school.description }}</p>
+        <a href="{{ path('front_schools_show', { id: school.id }) }}" class="btn btn-primary">Voir</a>
+    {% endfor %}
+
+    {{ knp_pagination_render(schools) }}
+{% endblock %}

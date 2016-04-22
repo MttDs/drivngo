@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>{{ school.name }}</h1>
+
+    <p>{{ school.description }}</p>
+
+    {% if school.registrationPricings|length != 0 %}
+        <a href="#" class="btn btn-primary">S'inscrire à cette auto école</a>
+    {% endif %}
+{% endblock %}
