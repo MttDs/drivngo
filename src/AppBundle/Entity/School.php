@@ -83,6 +83,20 @@ class School
      */
     private $pricings;
 
+    public function getRegistrationPricings()
+    {
+        $pricings = array();
+
+        foreach ($this->pricings as $pricing) {
+
+            if ("Tarif inscription" == $pricing->getPricingCategory()->getName()) {
+                $pricings[] = $pricing;
+            }
+        }
+
+        return $pricings;
+    }
+
     /**
      * Get id
      *
@@ -287,7 +301,7 @@ class School
     /**
      * Get pricings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPricings()
     {
