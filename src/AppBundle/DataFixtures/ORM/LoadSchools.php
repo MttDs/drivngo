@@ -22,6 +22,8 @@ class LoadSchools extends AbstractFixture implements OrderedFixtureInterface {
         $school->setPhoneNumber('01 43 26 42 42');
         $school->setUser($this->getReference('manager'));
 
+        $this->addReference('cluny', $school);
+
         $manager->persist($school);
 
         $school = new School();
@@ -37,6 +39,8 @@ Après avoir travaillé avec son père, le gérant actuel continue seul l’aven
         $school->setPostcode('35238');
         $school->setPhoneNumber('01 44 39 30 30');
         $school->setUser($this->getReference('manager'));
+
+        $this->addReference('mouffetard', $school);
 
         $manager->persist($school);
         $manager->flush();

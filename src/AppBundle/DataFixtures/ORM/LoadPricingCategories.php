@@ -15,6 +15,8 @@ class LoadPricingCategories extends AbstractFixture implements OrderedFixtureInt
             $pricingCategory = new PricingCategory();
             $pricingCategory->setName($pricing_name);
 
+            $this->addReference('registration-pricing', $pricingCategory);
+
             $manager->persist($pricingCategory);
         }
 
