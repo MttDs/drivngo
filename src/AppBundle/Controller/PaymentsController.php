@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 
+use BackBundle\Entity\Student;
 use AppBundle\Entity\Payment;
 use AppBundle\Entity\Pricing;
 use AppBundle\Entity\School;
@@ -40,9 +41,19 @@ class PaymentsController extends BaseController
             $em->persist($payment);
             $em->flush();
 
-            $this->setFlash('notice', "Transaction effecutée. Elle sera validée prochainement par l'auto-école");
+            if (!is_null($payment->getId())) {
+                $student = new Student();
+                $student->setSchool($school);
+                $student->setUser($this->getUser());
+                $student->setActive(false);
 
-            return $this->redirect($this->generateUrl('front_schools_show', array('id' => $school->getId())));
+                $em->persist($student);
+                $em->flush();
+
+                $this->setFlash('notice', "Transaction effecutée. Elle sera validée prochainement par l'auto-école");
+
+                return $this->redirect($this->generateUrl('front_schools_show', array('id' => $school->getId())));
+            }
         }
 
         $this->setFlash('alert', "Impossible de valider votre inscription");
