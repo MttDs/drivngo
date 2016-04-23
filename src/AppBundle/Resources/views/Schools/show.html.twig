@@ -6,6 +6,56 @@
     <p>{{ school.description }}</p>
 
     {% if school.registrationPricings|length != 0 %}
-        <a href="#" class="btn btn-primary">S'inscrire à cette auto école</a>
+        <a href="#">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">
+                S'inscrire à cette auto école
+            </button>
+        </a>
     {% endif %}
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Valider votre inscription</h4>
+          </div>
+          {{ form_start(paymentForm, { attr: { action: path('front_schools_payments_create', { 'school_id': school.id }) }}) }}
+              <div class="modal-body">
+                    <div class="form-group">
+                        {{ form_label(paymentForm.pricing) }}
+                        {{ form_widget(paymentForm.pricing, { attr: { class: 'form-control' }} ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(paymentForm.credit_card_number) }}
+                        {{ form_widget(paymentForm.credit_card_number, { attr: { class: 'form-control' }} ) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(paymentForm.credit_card_month) }}
+                                {{ form_widget(paymentForm.credit_card_month, { attr: { class: 'form-control' }} ) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(paymentForm.credit_card_day) }}
+                                {{ form_widget(paymentForm.credit_card_day, { attr: { class: 'form-control' }} ) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(paymentForm.credit_card_code) }}
+                        {{ form_widget(paymentForm.credit_card_code, { attr: { class: 'form-control' }} ) }}
+                    </div>
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Payer et valider</button>
+              </div>
+            {{ form_end(paymentForm) }}
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 {% endblock %}
