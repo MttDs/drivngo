@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class PricingRepository extends EntityRepository
 {
+    public function getRegistrationPricingFromSchoolBuilder($school_id) {
+
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p')
+            ->leftJoin('p.school', 's')
+            ->leftJoin('p.pricingCategory', 'c')
+            ->where('s.id = :school_id')
+            ->andWhere('c = p.pricingCategory')
+            ->andWhere('c.name = :category')
+            ->setParameter('school_id', $school_id)
+            ->setParameter('category', 'Tarif Inscription');
+
+        return $qb;
+    }
 }
