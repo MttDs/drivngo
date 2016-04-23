@@ -48,6 +48,11 @@ class User extends BaseUser
      */
     private $employees;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="user")
+     */
+    private $students;
+
     public function __construct()
     {
         parent::__construct();
@@ -191,10 +196,43 @@ class User extends BaseUser
     /**
      * Get employees
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEmployees()
     {
         return $this->employees;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \BackBundle\Entity\Student $students
+     * @return User
+     */
+    public function addStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \BackBundle\Entity\Student $students
+     */
+    public function removeStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

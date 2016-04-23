@@ -84,6 +84,11 @@ class School
     private $employees;
 
     /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="school")
+     */
+    private $students;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pricing", mappedBy="school")
      */
     private $pricings;
@@ -377,10 +382,43 @@ class School
     /**
      * Get employees
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEmployees()
     {
         return $this->employees;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \BackBundle\Entity\Student $students
+     * @return School
+     */
+    public function addStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \BackBundle\Entity\Student $students
+     */
+    public function removeStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }
