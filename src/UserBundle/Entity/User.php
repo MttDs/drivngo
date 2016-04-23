@@ -43,6 +43,11 @@ class User extends BaseUser
      */
     private $payments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Employee", mappedBy="user")
+     */
+    private $employees;
+
     public function __construct()
     {
         parent::__construct();
@@ -153,10 +158,43 @@ class User extends BaseUser
     /**
      * Get payments
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPayments()
     {
         return $this->payments;
+    }
+
+    /**
+     * Add employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     * @return User
+     */
+    public function addEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees[] = $employees;
+
+        return $this;
+    }
+
+    /**
+     * Remove employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     */
+    public function removeEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees->removeElement($employees);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
     }
 }
