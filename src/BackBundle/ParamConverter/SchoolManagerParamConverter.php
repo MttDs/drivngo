@@ -38,7 +38,7 @@ class SchoolManagerParamConverter implements ParamConverterInterface
         $id = null;
 
         if (!is_null($request->get('id'))) {
-            $id = $request->get('school_id');
+            $id = $request->get('id');
         }
         else if (!is_null($request->get('school_id'))) {
             $id = $request->get('school_id');

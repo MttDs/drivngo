@@ -6,7 +6,7 @@ security:
     role_hierarchy:
         ROLE_INSTRUCTOR:  ROLE_USER
         ROLE_SECRETARY:   ROLE_USER
-        ROLE_MANAGER:     [ROLE_USER, ROLE_INSTRUCTOR]
+        ROLE_MANAGER:     [ROLE_USER, ROLE_INSTRUCTOR, ROLE_SECRETARY]
         ROLE_SUPER_ADMIN: ROLE_MANAGER
 
     providers:
