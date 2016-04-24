@@ -5,7 +5,7 @@ namespace UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use AppBundle\Entity\School;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
@@ -56,6 +56,17 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function worksIn(School $school)
+    {
+        foreach ($this->employees as $employee) {
+            if ($employee->getSchool() == $school) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -229,7 +240,7 @@ class User extends BaseUser
     /**
      * Get students
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getStudents()
     {
