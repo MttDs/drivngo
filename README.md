@@ -24,6 +24,7 @@ $ run http://127.0.0.1:8000/
 * /
 * /auto-ecoles
 * /auto-ecoles/{id}
+* [POST] /auto-ecoles/{id}/payment/create
 
 ### Back
 
@@ -35,6 +36,8 @@ $ run http://127.0.0.1:8000/
 * (manager) /dashboard/schools/{id}/destroy
 * (manager) /dashboard/schools/create
 * (manager) /dashboard/schools/{id}/pricings
+* (manager / secretary) /dashboard/schools/{id}/students
+* [POST] (manager / secretary) /dashboard/schools/{id}/students
 
 ### Bundle 
 
@@ -46,6 +49,8 @@ $ run http://127.0.0.1:8000/
 * Schools
 * PricingCategories
 * Pricings
+* Students
+* Employees
 
 ## Admin design
 
