@@ -36,7 +36,14 @@
                         <td>{{ student.user.lastname }}</td>
                         <td>{{ student.user.email }}</td>
                         <td>
-                            {{ student.active }}
+                            <form method="POST" action="{{ path('back_schools_students_change', { school_id: school.id, id: student.id }) }}">
+                                <label for="status">En cours d'apprentissage</label>
+                                {% if student.active %}
+                                    <input type="checkbox" name="active" checked="checked" id="status"/>
+                                {% else %}
+                                    <input type="checkbox" name="active" id="status"/>
+                                {% endif %}
+                                <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
                         </td>
                     </tr>
                 {% endfor %}
