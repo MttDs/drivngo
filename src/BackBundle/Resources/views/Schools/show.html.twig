@@ -42,4 +42,12 @@
         </div>
     {% endif %}
 
+    {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ path('back_schools_students', { school_id: school.id }) }}" class="btn btn-primary">Voir les étudiants</a>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}

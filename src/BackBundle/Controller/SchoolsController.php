@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use BackBundle\Form\SchoolType;
 use AppBundle\Entity\School;
+use BackBundle\Entity\Employee;
 
 /**
  * @Route("/schools")
@@ -49,6 +50,13 @@ class SchoolsController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($school);
+
+            $employee = new Employee();
+            $employee->setSchool($school);
+            $employee->setUser($this->getUser());
+            $employee->setActive(true);
+            $em->persist($employee);
+
             $em->flush();
 
             $this->setFlash('notice', 'Auto école créée !');

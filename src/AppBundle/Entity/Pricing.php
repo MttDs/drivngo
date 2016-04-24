@@ -60,6 +60,15 @@ class Pricing
     private $pricingCategory;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="pricing")
+     */
+    private $payments;
+
+    public function toStringLabel() {
+        return $this->name . " " . $this->price . "€";
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -154,7 +163,7 @@ class Pricing
     /**
      * Get school
      *
-     * @return \AppBundle\Entity\School 
+     * @return \AppBundle\Entity\School
      */
     public function getSchool()
     {
@@ -177,10 +186,50 @@ class Pricing
     /**
      * Get pricingCategory
      *
-     * @return \AppBundle\Entity\PricingCategory 
+     * @return \AppBundle\Entity\PricingCategory
      */
     public function getPricingCategory()
     {
         return $this->pricingCategory;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->payments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     * @return Pricing
+     */
+    public function addPayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments[] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Remove payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     */
+    public function removePayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments->removeElement($payments);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
     }
 }

@@ -79,9 +79,24 @@ class School
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Employee", mappedBy="school")
+     */
+    private $employees;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="school")
+     */
+    private $students;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pricing", mappedBy="school")
      */
     private $pricings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="school")
+     */
+    private $payments;
 
     public function getRegistrationPricings()
     {
@@ -306,5 +321,104 @@ class School
     public function getPricings()
     {
         return $this->pricings;
+    }
+
+    /**
+     * Add payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     * @return School
+     */
+    public function addPayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments[] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Remove payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     */
+    public function removePayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments->removeElement($payments);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    /**
+     * Add employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     * @return School
+     */
+    public function addEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees[] = $employees;
+
+        return $this;
+    }
+
+    /**
+     * Remove employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     */
+    public function removeEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees->removeElement($employees);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \BackBundle\Entity\Student $students
+     * @return School
+     */
+    public function addStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \BackBundle\Entity\Student $students
+     */
+    public function removeStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

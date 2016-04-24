@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Doctrine\ORM\EntityManager;
 
-class SchoolManagerParamConverter implements ParamConverterInterface
+class WorksInParamConverter implements ParamConverterInterface
 {
 
     protected $securityContext;
@@ -23,7 +23,7 @@ class SchoolManagerParamConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration)
     {
-        if ('school_manager' !== $configuration->getName()) {
+        if ('works_in' !== $configuration->getName()) {
             return false;
         }
 
@@ -37,24 +37,18 @@ class SchoolManagerParamConverter implements ParamConverterInterface
 
         $id = null;
 
-        if (!is_null($request->get('id'))) {
-            $id = $request->get('id');
-        }
-        else if (!is_null($request->get('school_id'))) {
-            $id = $request->get('school_id');
+        if (is_null($request->get('school_id'))) {
+            throw new AccessDeniedException();
         }
 
-        $params = array(
-            'id'     => $id,
-            'userId' => $user->getId()
-        );
+        $school = $schoolRepo->find($request->get('school_id'));
 
-        $school = $schoolRepo->findSchoolFromManager($params);
+        foreach ($user->getEmployees() as $employee) {
+            if ($employee->getSchool() == $school && $employee->getActive() == true) {
+                $request->attributes->set('school', $school);
 
-        if ($school !== null) {
-            $request->attributes->set('school', $school);
-
-            return true;
+                return;
+            }
         }
 
         throw new AccessDeniedException();

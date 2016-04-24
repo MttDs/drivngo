@@ -4,7 +4,8 @@ namespace UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\School;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
@@ -37,9 +38,35 @@ class User extends BaseUser
      */
     private $schools;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="user")
+     */
+    private $payments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Employee", mappedBy="user")
+     */
+    private $employees;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="user")
+     */
+    private $students;
+
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function worksIn(School $school)
+    {
+        foreach ($this->employees as $employee) {
+            if ($employee->getSchool() == $school) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -114,10 +141,109 @@ class User extends BaseUser
     /**
      * Get schools
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSchools()
     {
         return $this->schools;
+    }
+
+    /**
+     * Add payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     * @return User
+     */
+    public function addPayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments[] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Remove payments
+     *
+     * @param \AppBundle\Entity\Payment $payments
+     */
+    public function removePayment(\AppBundle\Entity\Payment $payments)
+    {
+        $this->payments->removeElement($payments);
+    }
+
+    /**
+     * Get payments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    /**
+     * Add employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     * @return User
+     */
+    public function addEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees[] = $employees;
+
+        return $this;
+    }
+
+    /**
+     * Remove employees
+     *
+     * @param \BackBundle\Entity\Employee $employees
+     */
+    public function removeEmployee(\BackBundle\Entity\Employee $employees)
+    {
+        $this->employees->removeElement($employees);
+    }
+
+    /**
+     * Get employees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmployees()
+    {
+        return $this->employees;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \BackBundle\Entity\Student $students
+     * @return User
+     */
+    public function addStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \BackBundle\Entity\Student $students
+     */
+    public function removeStudent(\BackBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

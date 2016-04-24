@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 use AppBundle\Entity\School;
+use AppBundle\Entity\Payment;
+use AppBundle\Form\PaymentType;
 
 class SchoolsController extends BaseController
 {
@@ -39,8 +41,11 @@ class SchoolsController extends BaseController
      * @Method({"GET"})
      */
     public function showAction(School $school) {
+        $paymentForm = $this->createForm(PaymentType::class, new Payment(), array('school_id' => $school->getId()));
+
         return $this->render('AppBundle:Schools:show.html.twig', array(
-                'school' => $school
+                'school'      => $school,
+                'paymentForm' => $paymentForm->createView()
             )
         );
     }
