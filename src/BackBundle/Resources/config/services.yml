@@ -4,3 +4,8 @@ services:
         arguments: [@security.context, @doctrine.orm.entity_manager]
         tags:
             - { name: request.param_converter }
+    back_bundle.works_in_paramconverter:
+        class: BackBundle\ParamConverter\WorksInParamConverter
+        arguments: [@security.context, @doctrine.orm.entity_manager]
+        tags:
+            - { name: request.param_converter }
