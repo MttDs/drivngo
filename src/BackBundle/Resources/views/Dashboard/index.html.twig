@@ -1,5 +1,12 @@
 {% extends "::dashboard.html.twig" %}
 
+{% block javascripts %}
+    {% javascripts '@BackBundle/Resources/public/js/dashboard_payment_charts.js' %}
+        {{ parent() }}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
 {% block body %}
     <!-- Page Heading -->
     <div class="row">
@@ -25,7 +32,9 @@
             {% else %}
                 {% for school in schools %}
                     <div class="col-md-6">
-                        <h2>{{ school.name }} </h2>
+                        <h2>{{ school.name }}</h2>
+                        <div id="chart_{{ school.id }}" style="height: 250px;">
+                        </div>
                     </div>
                 {% endfor %}
             {% endif %}

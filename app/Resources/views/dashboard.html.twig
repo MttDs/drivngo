@@ -228,16 +228,16 @@
             </div>
         </div>
     </div>
-
+     {% block javascripts %}
         {% javascripts
             'js/jquery2-2.js'
             'js/bootstrap.min.js'
             'js/raphael.min.js'
             'js/morris.min.js'
-            'js/morris-data.js'
             '@AppBundle/Resources/public/js/script.js'
             output='js/compiled/app.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+    {% endblock %}
     </body>
 </html>
