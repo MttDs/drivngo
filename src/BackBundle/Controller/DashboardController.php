@@ -2,16 +2,24 @@
 
 namespace BackBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DashboardController extends Controller
+use AppBundle\Controller\BaseController;
+
+class DashboardController extends BaseController
 {
     /**
      * @Route("/", name="back_dashboard_home")
      */
     public function indexAction()
     {
-        return $this->render('BackBundle:Dashboard:index.html.twig');
+        $schoolRepo = $this->getRepository('AppBundle:School');
+        $schools = $schoolRepo->findBy(array(
+                'user' => $this->getUser()
+            )
+        );
+
+
+        return $this->render('BackBundle:Dashboard:index.html.twig', array('schools' => $schools));
     }
 }
