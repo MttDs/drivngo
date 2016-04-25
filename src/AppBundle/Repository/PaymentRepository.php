@@ -15,11 +15,10 @@ class PaymentRepository extends EntityRepository
 {
     public function getTurnoverBySchoolBetweenDate($school_id, $dateMin = null, $dateMax = null) {
         if (is_null($dateMin))
-            $dateMin = (new \DateTime())->modify('-7 days');
+            $dateMin = (new \DateTime())->modify('-6 days');
         if (is_null($dateMax))
             $dateMax = new \DateTime();
 
-        // $this->getConfiguration()->addCustomDatetimeFunction('DATE', 'DateFunction');
         $qb = $this->_em->createQueryBuilder()
            ->select('DATE(p.createdAt) as date, SUM(p.price) as turnover', 'COUNT(p) as nbTransaction')
            ->from($this->_entityName, 'p')
@@ -29,6 +28,27 @@ class PaymentRepository extends EntityRepository
            ->setParameter(':date_max', $dateMax->format('Y-m-d 23:59:59'))
            ->groupBy('date, p.school');
 
-        return $qb->getQuery()->getResult();
+        $result = $qb->getQuery()->getResult();
+        $interval = new \DateInterval('P1D');
+        $dateRange = new \DatePeriod($dateMin, $interval, $dateMax->modify( '+1 day' ));
+
+        $data = array();
+
+        foreach($dateRange as $date){
+            foreach ($result as $r) {
+                if ($r['date'] == $date->format("Y-m-d")) {
+                    $data[] = $r;
+                    continue(2);
+                }
+            }
+
+            $data[] = array(
+                'date' => $date->format("Y-m-d"),
+                'nbTransaction' => null,
+                'turnover' => null
+            );
+        }
+
+        return $data;
     }
 }

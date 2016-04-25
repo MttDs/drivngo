@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  function retrieve(dateMin, dateMax) {
+  function retrieve() {
      $.ajax({url: "update_charts", success: function(result){
         $.each(result, function(i, row) {
           data = [];
@@ -11,18 +11,12 @@ $(document).ready(function() {
               turnover: col.turnover,
               transaction: col.nbTransaction
             });
-            //console.log(col.date);
-            //console.log(col.nbTransaction);
-            //onsole.log(col.turnover);
           });
 
           generateChart(i, data);
         });
       }});
   }
-
-
-  retrieve("", "");
 
   function generateChart(school_id, data) {
     Morris.Area({
@@ -40,5 +34,7 @@ $(document).ready(function() {
           resize: true
       });
   }
+
+  retrieve();
 
 });
