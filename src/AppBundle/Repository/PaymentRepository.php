@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\DateFunction;
+use AppBundle\Entity\School;
 
 /**
  * PaymentRepository

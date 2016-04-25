@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Controller\BaseController;
 use BackBundle\Form\SchoolType;
@@ -185,4 +186,19 @@ class SchoolsController extends BaseController
             )
         );
     }
+
+    /**
+     * @Route("/{id}/update_chart", requirements={"id" = "\d+"}, name="back_schools_update_chart")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @Method({"GET"})
+     */
+    public function updateChartAction(Request $request, School $school) {
+        $paymentRepo = $this->getRepository('AppBundle:Payment');
+
+        $days = $paymentRepo->getTurnoverBySchoolBetweenDate($school->getId(), null, null);
+
+        return new JsonResponse($days);
+    }
+
 }
