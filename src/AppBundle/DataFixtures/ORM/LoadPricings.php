@@ -19,6 +19,8 @@ class LoadPricings extends AbstractFixture implements OrderedFixtureInterface {
             $pricing->setPricingCategory($this->getReference('registration-pricing'));
             $pricing->setSchool($this->getReference('mouffetard'));
 
+            $this->addReference($pricing_values['ref'], $pricing);
+
             $manager->persist($pricing);
         }
 
@@ -29,11 +31,13 @@ class LoadPricings extends AbstractFixture implements OrderedFixtureInterface {
         return array(
             array(
                 'name'  => "Tarif code",
-                'price' => "335"
+                'price' => "335",
+                'ref'   => 'pricing-code'
             ),
             array(
                 'name'  => "Tarif code et conduite",
-                'price' => "544"
+                'price' => "544",
+                'ref'   => 'pricing-code-driving'
             ),
         );
     }

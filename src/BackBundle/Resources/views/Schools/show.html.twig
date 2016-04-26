@@ -1,5 +1,13 @@
 {% extends "dashboard.html.twig" %}
 
+{% block javascripts %}
+    {% javascripts '@BackBundle/Resources/public/js/dashboard_payment_school_chart.js' %}
+        {{ parent() }}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+
 {% block body %}
     <!-- Page Heading -->
     <div class="row">
@@ -29,6 +37,37 @@
     </div>
     {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
         <div class="row">
+            <div class="col-md-12">
+                <h2>Historique</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group date" data-date-format="yyyy/mm/dd" data-provide="datepicker">
+                            <input type="text" id="dateMin" placeholder="Date de départ" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-date-format="yyyy/mm/dd" data-provide="datepicker">
+                            <input type="text" id="dateMax" placeholder="Date de fin" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" id="updateChart">Mettre à jour</button>
+                    </div>
+                </div>
+                <div id="chart" style="height: 300px" data-id="{{ school.id }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Actions</h2>
+            </div>
             <div class="col-md-6">
                 <a class="btn btn-primary" href="{{ path('back_schools_edit', { id: school.id }) }}">Editer</a>
                 <a class="btn btn-primary" href="{{ path('back_schools_pricings', { school_id: school.id }) }}">Les tarifs</a>
@@ -40,6 +79,8 @@
                 {{ form_end(destroyForm, { render_rest: false }) }}
             </div>
         </div>
+            <br/>
+
     {% endif %}
 
     {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}

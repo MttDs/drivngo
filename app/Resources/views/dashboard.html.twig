@@ -9,6 +9,7 @@
             'css/sb-admin.css'
             'css/morris.css'
             'css/font-awesome.min.css'
+            'css/bootstrap-datepicker3.min.css'
             '@AppBundle/Resources/public/css/style.css'
             filter='cssrewrite' output='css/compiled/app.css' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -154,7 +155,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="#"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="{{ path('back_dashboard_home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     {% if is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR') %}
                         <li>
@@ -228,16 +229,17 @@
             </div>
         </div>
     </div>
-
+     {% block javascripts %}
         {% javascripts
             'js/jquery2-2.js'
             'js/bootstrap.min.js'
             'js/raphael.min.js'
             'js/morris.min.js'
-            'js/morris-data.js'
+            'js/bootstrap-datepicker.min.js'
             '@AppBundle/Resources/public/js/script.js'
             output='js/compiled/app.js' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+    {% endblock %}
     </body>
 </html>
