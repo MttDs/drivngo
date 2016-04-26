@@ -196,7 +196,16 @@ class SchoolsController extends BaseController
     public function updateChartAction(Request $request, School $school) {
         $paymentRepo = $this->getRepository('AppBundle:Payment');
 
-        $days = $paymentRepo->getTurnoverBySchoolBetweenDate($school->getId(), null, null);
+        $dateMin = null;
+        $dateMax = null;
+
+        if (!is_null($request->get('dateMin')))
+            $dateMin = new \DateTime($request->get('dateMin'));
+
+        if (!is_null($request->get('dateMax')))
+            $dateMax = new \DateTime($request->get('dateMax'));
+
+        $days = $paymentRepo->getTurnoverBySchoolBetweenDate($school->getId(), $dateMin, $dateMax);
 
         return new JsonResponse($days);
     }
