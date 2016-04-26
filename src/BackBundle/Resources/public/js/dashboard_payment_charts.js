@@ -1,24 +1,36 @@
 $(document).ready(function() {
 
   function retrieve() {
-     $.ajax({url: "update_charts", success: function(result){
+
+    var data = {};
+
+    var dateMin = $('#dateMin').val();
+    var dateMax = $('#dateMax').val();
+
+    if (dateMin != "" && dateMax != "")
+            data = { dateMin: dateMin, dateMax: dateMax };
+
+     $.ajax({url: "update_charts", data: data, success: function(result){
+
         $.each(result, function(i, row) {
-          data = [];
-          tmp = [];
+          value = [];
+
           $.each(row, function(v, col) {
-            data.push({
+            value.push({
               day: col.date,
               turnover: col.turnover,
               transaction: col.nbTransaction
             });
           });
 
-          generateChart(i, data);
+          generateChart(i, value);
         });
       }});
   }
 
   function generateChart(school_id, data) {
+    $('#chart_'+school_id).empty();
+
     Morris.Area({
           element: 'chart_'+school_id,
           data: data,
@@ -37,4 +49,5 @@ $(document).ready(function() {
 
   retrieve();
 
+  $('#updateChart').on('click', function() { retrieve() });
 });

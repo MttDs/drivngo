@@ -30,6 +30,27 @@
                     <a href="{{ path('back_schools_new') }}"><button class="btn btn-primary btn-lg btn-block">Gérer mon auto école en ligne</button></a>
                 </div>
             {% else %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group date" data-date-format="yyyy/mm/dd" data-provide="datepicker">
+                            <input type="text" id="dateMin" placeholder="Date de départ" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group date" data-date-format="yyyy/mm/dd" data-provide="datepicker">
+                            <input type="text" id="dateMax" placeholder="Date de fin" class="form-control">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" id="updateChart">Mettre à jour</button>
+                    </div>
+                </div>
                 {% for school in schools %}
                     <div class="col-md-6">
                         <h2>{{ school.name }}</h2>
