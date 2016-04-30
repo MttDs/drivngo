@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Controller\BaseController;
-use BackBundle\Form\SchoolType;
+use BackBundle\Form\AdType;
+use AppBundle\Entity\Ad;
 use AppBundle\Entity\School;
-use BackBundle\Entity\Employee;
 
 /**
  * @Route("/schools")
@@ -32,6 +32,28 @@ class AdsController extends BaseController
 
         return $this->render('BackBundle:Ads:index.html.twig', array(
                 'schools' => $schools
+            )
+        );
+    }
+
+    /**
+     * @Route("/ads", name="back_schools_ads_show")
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"POST"})
+     */
+    public function showAction(Request $request) {
+        $id = $request->get('school_id');
+        $schoolRepo = $this->getRepository('AppBundle:School');
+        $form = $this->createForm(AdType::class, new Ad());
+        $school = $schoolRepo->find($id);
+
+        if ($school === null){
+            throw new NotFoundHttpException('School does not exist');
+        }
+
+        return $this->render('BackBundle:Ads:show.html.twig', array(
+                'school' => $school,
+                'form'   => $form->createView()
             )
         );
     }
