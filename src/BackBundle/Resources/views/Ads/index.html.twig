@@ -1,0 +1,34 @@
+{% extends "::dashboard.html.twig" %}
+
+{% block body %}
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Tableau de bord
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Publicités
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" action="{{ path('back_schools_ads_show') }}">
+                <div class="form-group">
+                    <label for="school_id">Sélectionner une auto-école</label>
+                    <select class="form-control" id="school_id" name="school_id">
+                        {% for school in schools %}
+                            <option value="{{ school.id }}">{{ school.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Sélectionner</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
