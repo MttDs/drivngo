@@ -98,6 +98,11 @@ class School
      */
     private $payments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="school")
+     */
+    private $ads;
+
     public function getRegistrationPricings()
     {
         $pricings = array();
@@ -415,10 +420,43 @@ class School
     /**
      * Get students
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Add ads
+     *
+     * @param \AppBundle\Entity\Ad $ads
+     * @return School
+     */
+    public function addAd(\AppBundle\Entity\Ad $ads)
+    {
+        $this->ads[] = $ads;
+
+        return $this;
+    }
+
+    /**
+     * Remove ads
+     *
+     * @param \AppBundle\Entity\Ad $ads
+     */
+    public function removeAd(\AppBundle\Entity\Ad $ads)
+    {
+        $this->ads->removeElement($ads);
+    }
+
+    /**
+     * Get ads
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAds()
+    {
+        return $this->ads;
     }
 }

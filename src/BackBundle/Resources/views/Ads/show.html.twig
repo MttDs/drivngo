@@ -1,0 +1,79 @@
+{% extends "::dashboard.html.twig" %}
+
+{% block body %}
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Tableau de bord
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> Publicités
+                </li>
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> {{ school.name }}
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Ajouter une publicité</h2>
+            {{ form_start(form, { attr: { action: path('back_schools_ads_create', { id: school.id }) }}) }}
+            <div class="form-group">
+                {{ form_label(form.fileName) }}
+                {{ form_widget(form.fileName, { attr: { class: '', placeholder: 'Image'}}) }}
+                {{ form_errors(form.fileName) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.url) }}
+                {{ form_widget(form.url, { attr: { class: 'form-control', placeholder: 'Lien'}}) }}
+                {{ form_errors(form.url) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.adType) }}
+                {{ form_widget(form.adType, { attr: { class: 'form-control' }} ) }}
+            </div>
+            <button class="btn btn-primary" type="submit">Envoyer</button>
+            {{ form_end(form, { form_rest: false }) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Publicités sur cette auto-école</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Url</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ad in school.ads %}
+                        <tr>
+                            <td>{{ ad.url }}</td>
+                            <td>{{ ad.adType.name }}</td>
+                            <td><img class="img-responsive" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/></td>
+                            <td>
+                                {{ form_start(form, { action: path('back_schools_ads_destroy', { school_id: school.id, id: ad.id }), method: 'POST' }) }}
+                                    {{ form_widget(form._token) }}
+                                    <button class="btn btn-danger">Supprimer</button>
+                                {{ form_end(form, { render_rest: false }) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

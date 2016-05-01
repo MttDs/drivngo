@@ -157,7 +157,7 @@
                     <li class="active">
                         <a href="{{ path('back_dashboard_home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    {% if is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR') %}
+                    {% if (is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR')) and (is_granted('ROLE_SUPER_ADMIN') == false) %}
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#schools"><i class="fa fa-fw fa-list"></i> Mes auto écoles <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="schools" class="collapse">
@@ -174,14 +174,16 @@
                     <li>
                     </li>
                     {% endif %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li>
+                            <a href="{{ path('back_schools_ads') }}"><i class="fa fa-fw fa-edit"></i> Publicité</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-edit"></i> Forms</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
