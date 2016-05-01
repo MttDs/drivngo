@@ -52,6 +52,7 @@
                     <tr>
                         <th>Url</th>
                         <th>Image</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +60,12 @@
                         <tr>
                             <td>{{ ad.url }}</td>
                             <td><img class="img-responsive" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/></td>
+                            <td>
+                                {{ form_start(form, { action: path('back_schools_ads_destroy', { school_id: school.id, id: ad.id }), method: 'POST' }) }}
+                                    {{ form_widget(form._token) }}
+                                    <button class="btn btn-danger">Supprimer</button>
+                                {{ form_end(form, { render_rest: false }) }}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

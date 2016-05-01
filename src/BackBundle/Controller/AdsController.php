@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 use AppBundle\Controller\BaseController;
 use BackBundle\Form\AdType;
@@ -45,6 +47,7 @@ class AdsController extends BaseController
         $id = $request->get('school_id');
         $schoolRepo = $this->getRepository('AppBundle:School');
         $form = $this->createForm(AdType::class, new Ad());
+        $deleteForm = $this->createForm(AdType::class, new Ad());
         $school = $schoolRepo->find($id);
 
         if ($school === null){
@@ -98,5 +101,25 @@ class AdsController extends BaseController
             'form'   => $form->createView()
             )
         );
+    }
+
+    /**
+     * @Route("{school_id}/ads/{id}/destroy", requirements={"school_id" = "\d+", "id" = "\d+"}, name="back_schools_ads_destroy")
+     * @ParamConverter("school", class="AppBundle:School", options={"id" = "school_id"})
+     * @ParamConverter("ad", class="AppBundle:Ad", options={"id" = "id"})
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"POST"})
+     */
+    public function destroyAction(Request $request, School $school, Ad $ad) {
+        $fs = new Filesystem();
+        $fs->remove(array($this->container->getParameter('kernel.root_dir').'/../web/uploads/school_'.$school->getId().'/'.$ad->getFileName()  ));
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($ad);
+        $em->flush();
+
+        $this->setFlash('notice', 'Publicité supprimée');
+
+        exit(0);
     }
 }
