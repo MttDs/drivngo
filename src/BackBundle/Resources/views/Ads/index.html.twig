@@ -18,17 +18,12 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form method="post" action="{{ path('back_schools_ads_show') }}">
-                <div class="form-group">
-                    <label for="school_id">Sélectionner une auto-école</label>
-                    <select class="form-control" id="school_id" name="school_id">
-                        {% for school in schools %}
-                            <option value="{{ school.id }}">{{ school.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <button class="btn btn-primary" type="submit">Sélectionner</button>
-            </form>
+            <h2>Selectionner une auto-école</h2>
+             <ul class="list-group">
+                {% for school in schools %}
+                    <li class="list-group-item"><a href="{{ path('back_schools_ads_show', { school_id: school.id }) }}">{{ school.name }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 {% endblock %}

@@ -39,20 +39,15 @@ class AdsController extends BaseController
     }
 
     /**
-     * @Route("/ads", name="back_schools_ads_show")
+     * @Route("/{school_id}/ads", name="back_schools_ads_show")
      * @Security("has_role('ROLE_SUPER_ADMIN')")
-     * @Method({"POST"})
+     * @ParamConverter("school", class="AppBundle:School", options={"id" = "school_id"})
+     * @Method({"GET"})
      */
-    public function showAction(Request $request) {
-        $id = $request->get('school_id');
+    public function showAction(Request $request, School $school) {
         $schoolRepo = $this->getRepository('AppBundle:School');
         $form = $this->createForm(AdType::class, new Ad());
         $deleteForm = $this->createForm(AdType::class, new Ad());
-        $school = $schoolRepo->find($id);
-
-        if ($school === null){
-            throw new NotFoundHttpException('School does not exist');
-        }
 
         return $this->render('BackBundle:Ads:show.html.twig', array(
                 'school' => $school,
@@ -96,15 +91,15 @@ class AdsController extends BaseController
             $this->setFlash('failure', "Impossible d'ajouter cette publicité");
         }
 
-        return $this->render('BackBundle:Ads:show.html.twig', array(
-            'school' => $school,
-            'form'   => $form->createView()
+        return $this->redirect($this->generateUrl('back_schools_ads_show', array(
+                    'school_id' => $school->getId()
+                )
             )
         );
     }
 
     /**
-     * @Route("{school_id}/ads/{id}/destroy", requirements={"school_id" = "\d+", "id" = "\d+"}, name="back_schools_ads_destroy")
+     * @Route("/{school_id}/ads/{id}/destroy", requirements={"school_id" = "\d+", "id" = "\d+"}, name="back_schools_ads_destroy")
      * @ParamConverter("school", class="AppBundle:School", options={"id" = "school_id"})
      * @ParamConverter("ad", class="AppBundle:Ad", options={"id" = "id"})
      * @Security("has_role('ROLE_SUPER_ADMIN')")
@@ -120,6 +115,10 @@ class AdsController extends BaseController
 
         $this->setFlash('notice', 'Publicité supprimée');
 
-        exit(0);
+        return $this->redirect($this->generateUrl('back_schools_ads_show', array(
+                    'school_id' => $school->getId()
+                )
+            )
+        );
     }
 }

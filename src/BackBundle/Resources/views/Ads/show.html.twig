@@ -51,6 +51,7 @@
                 <thead>
                     <tr>
                         <th>Url</th>
+                        <th>Type</th>
                         <th>Image</th>
                         <th>Action</th>
                     </tr>
@@ -59,6 +60,7 @@
                     {% for ad in school.ads %}
                         <tr>
                             <td>{{ ad.url }}</td>
+                            <td>{{ ad.adType.name }}</td>
                             <td><img class="img-responsive" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/></td>
                             <td>
                                 {{ form_start(form, { action: path('back_schools_ads_destroy', { school_id: school.id, id: ad.id }), method: 'POST' }) }}
