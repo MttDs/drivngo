@@ -21,6 +21,7 @@
 
     <div class="row">
         <div class="col-md-12">
+            <h2>Ajouter une publicité</h2>
             {{ form_start(form, { attr: { action: path('back_schools_ads_create', { id: school.id }) }}) }}
             <div class="form-group">
                 {{ form_label(form.fileName) }}
@@ -43,4 +44,27 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Publicités sur cette auto-école</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Url</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ad in school.ads %}
+                        <tr>
+                            <td>{{ ad.url }}</td>
+                            <td><img class="img-responsive" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
 {% endblock %}
