@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            {{ form_start(form, { attr: { action: '#' }}) }}
+            {{ form_start(form, { attr: { action: path('back_schools_ads_create', { id: school.id }) }}) }}
             <div class="form-group">
                 {{ form_label(form.fileName) }}
                 {{ form_widget(form.fileName, { attr: { class: '', placeholder: 'Image'}}) }}
@@ -41,5 +41,6 @@
             <button class="btn btn-primary" type="submit">Envoyer</button>
             {{ form_end(form, { form_rest: false }) }}
         </div>
-    </div>// path('back_schools_update', { id: school.id })
+    </div>
+
 {% endblock %}

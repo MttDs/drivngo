@@ -57,4 +57,46 @@ class AdsController extends BaseController
             )
         );
     }
+
+    /**
+     * @Route("/ads/{id}", requirements={"id" = "\d+"}, name="back_schools_ads_create")
+     * @ParamConverter("school", class="AppBundle:School", options={"id" = "id"})
+     * @Security("has_role('ROLE_SUPER_ADMIN')")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request, School $school) {
+        $ad = new Ad();
+        $ad->setSchool($school);
+        $form = $this->createForm(AdType::class, $ad);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $ad->getFileName();
+
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+            $brochuresDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/school_'.$school->getId();
+            $file->move($brochuresDir, $fileName);
+
+            $ad->setFileName($fileName);
+
+            $em->persist($ad);
+            $em->flush();
+
+            $this->setFlash('notice', 'Publicité ajoutée');
+        }
+        else {
+            $this->setFlash('failure', "Impossible d'ajouter cette publicité");
+        }
+
+        return $this->render('BackBundle:Ads:show.html.twig', array(
+            'school' => $school,
+            'form'   => $form->createView()
+            )
+        );
+    }
 }
