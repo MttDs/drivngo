@@ -111,10 +111,10 @@ class Ad
     /**
      * Set school
      *
-     * @param \BackBundle\Entity\School $school
+     * @param \AppBundle\Entity\School $school
      * @return Ad
      */
-    public function setSchool(\BackBundle\Entity\School $school)
+    public function setSchool(\AppBundle\Entity\School $school)
     {
         $this->school = $school;
 
@@ -124,7 +124,7 @@ class Ad
     /**
      * Get school
      *
-     * @return \BackBundle\Entity\School
+     * @return \AppBundle\Entity\School
      */
     public function getSchool()
     {
@@ -134,10 +134,10 @@ class Ad
     /**
      * Set ad_type
      *
-     * @param \BackBundle\Entity\AdType $adType
+     * @param \AppBundle\Entity\AdType $adType
      * @return Ad
      */
-    public function setAdType(\BackBundle\Entity\AdType $adType)
+    public function setAdType(\AppBundle\Entity\AdType $adType)
     {
         $this->ad_type = $adType;
 
@@ -147,7 +147,7 @@ class Ad
     /**
      * Get ad_type
      *
-     * @return \BackBundle\Entity\AdType
+     * @return \AppBundle\Entity\AdType
      */
     public function getAdType()
     {
