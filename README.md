@@ -38,6 +38,7 @@ $ run http://127.0.0.1:8000/
 * (manager) /dashboard/schools/{id}/pricings
 * (manager / secretary) /dashboard/schools/{id}/students
 * POST | (manager / secretary) /dashboard/schools/{id}/students
+* (super admin) /dashboard/schools/{id}/ads
 
 ### Bundle 
 
@@ -51,6 +52,7 @@ $ run http://127.0.0.1:8000/
 * Pricings
 * Students
 * Employees
+* AdType
 
 ## Admin design
 
