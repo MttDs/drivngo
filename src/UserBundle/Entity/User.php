@@ -53,6 +53,8 @@ class User extends BaseUser
      */
     private $students;
 
+    private $role;
+
     public function __construct()
     {
         parent::__construct();
@@ -245,5 +247,17 @@ class User extends BaseUser
     public function getStudents()
     {
         return $this->students;
+    }
+
+    public function setRole($role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
     }
 }
