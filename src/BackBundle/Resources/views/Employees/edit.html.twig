@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            {{ form_start(form, { attr: { action: path('back_schools_employees_create', { school_id: school.id }) }}) }}
+            {{ form_start(form, { attr: { action: path('back_schools_employees_update', { school_id: school.id, user_id: user.id }) }}) }}
                 <div class="form-group">
                     {{ form_label(form.email) }}
                     {{ form_widget(form.email, { attr: { class: 'form-control', placeholder: 'Email'}}) }}

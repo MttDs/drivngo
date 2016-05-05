@@ -97,6 +97,39 @@ class EmployeesController extends BaseController
 
         return $this->render('BackBundle:Employees:edit.html.twig', array(
             'school' => $school,
-            'form'   => $form->createView()));
+            'form'   => $form->createView(),
+            'user'   => $user
+            )
+        );
+    }
+
+     /**
+     * @Route("/schools/{school_id}/employees/{user_id}/update", name="back_schools_employees_update", requirements={"school_id" = "\d+", "user_id" = "\d+"})
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @ParamConverter("user", class="UserBundle:User", options={"id" = "user_id"})
+     * @Method({"POST"})
+     */
+    public function updateAction(Request $request, School $school, User $user) {
+        if (!$user->worksIn($school)) {
+            throw new AccessDeniedException();
+        }
+
+        $form = $this->createForm(EmployeeType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->setFlash('notice', "Employé mis à jour !");
+            return $this->redirect($this->generateUrl('back_schools_employees', array('school_id' => $school->getId())));
+        }
+
+        $this->setFlash('alert', "Impossible de créer cet employé");
+
+        return $this->render('BackBundle:Employees:new.html.twig', array('school' => $school));
     }
 }
