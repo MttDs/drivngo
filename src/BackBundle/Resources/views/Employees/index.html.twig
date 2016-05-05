@@ -29,7 +29,7 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
-                    <th>Action</th>
+                    <th>Modifier</th>
                 </tr>
                 {% for employee in school.employees %}
                     <tr>
@@ -37,7 +37,7 @@
                         <td>{{ employee.user.lastName }}</td>
                         <td>{{ employee.user.email }}</td>
                         <td>
-                            <a class="btn btn-default" href="{{ path('back_schools_employees_edit', { school_id: school.id, user_id: employee.user.id }) }}">
+                            <a class="btn btn-default" href="{{ path('back_schools_employees_edit', { school_id: school.id, employee_id: employee.id }) }}">
                                 Mettre à jour
                             </a>
                         </td>

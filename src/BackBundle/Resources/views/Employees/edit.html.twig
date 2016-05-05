@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            {{ form_start(form, { attr: { action: path('back_schools_employees_update', { school_id: school.id, user_id: user.id }) }}) }}
+            {{ form_start(form, { attr: { action: path('back_schools_employees_update', { school_id: school.id, user_id: employee.user.id }) }}) }}
                 <div class="form-group">
                     {{ form_label(form.email) }}
                     {{ form_widget(form.email, { attr: { class: 'form-control', placeholder: 'Email'}}) }}
@@ -62,6 +62,13 @@
                 <button class="btn btn-primary btn-block" type="submit">Créer un employé</button>
                 <br/>
         {{ form_end(form, {display_rest: false}) }}
+        </div>
+
+        <div class="col-lg-12">
+            {{ form_start(destroyForm, { action: path('back_schools_employees_destroy', { school_id: school.id, employee_id: employee.id }) }) }}
+                {{ form_widget(destroyForm._token) }}
+                <button class="btn btn-danger">Supprimer</button>
+            {{ form_end(destroyForm, { render_rest: false }) }}
         </div>
     </div>
 {% endblock %}

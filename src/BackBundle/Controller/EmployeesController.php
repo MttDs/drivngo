@@ -25,7 +25,7 @@ class EmployeesController extends BaseController
      */
     public function indexAction(School $school)
     {
-        return $this->render('BackBundle:Employees:index.html.twig', array('school' => $school));
+        return $this->render('BackBundle:Employees:index.html.twig', array('school'      => $school));
     }
 
     /**
@@ -81,24 +81,32 @@ class EmployeesController extends BaseController
     }
 
     /**
-     * @Route("/schools/{school_id}/employees/{user_id}/edit", name="back_schools_employees_edit", requirements={"school_id" = "\d+", "user_id" = "\d+"})
+     * @Route("/schools/{school_id}/employees/{employee_id}/edit", name="back_schools_employees_edit", requirements={"school_id" = "\d+", "employee_id" = "\d+"})
      * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
-     * @ParamConverter("user", class="UserBundle:User", options={"id" = "user_id"})
+     * @ParamConverter("employee", class="BackBundle:Employee", options={"id" = "employee_id"})
      * @Method({"GET"})
      */
-    public function editAction(School $school, User $user)
+    public function editAction(School $school, Employee $employee)
     {
+        $user = $employee->getUser();
+
         if (!$user->worksIn($school)) {
             throw new AccessDeniedException();
         }
+
+        $destroyForm = $this->createForm(EmployeeType::class, $user, array(
+                'method' => 'DELETE'
+            )
+        );
 
         $form = $this->createForm(EmployeeType::class, $user);
 
         return $this->render('BackBundle:Employees:edit.html.twig', array(
             'school' => $school,
             'form'   => $form->createView(),
-            'user'   => $user
+            'employee'   => $employee,
+            'destroyForm' => $destroyForm->createView()
             )
         );
     }
@@ -131,5 +139,34 @@ class EmployeesController extends BaseController
         $this->setFlash('alert', "Impossible de créer cet employé");
 
         return $this->render('BackBundle:Employees:new.html.twig', array('school' => $school));
+    }
+
+    /**
+     * @Route("/schools/{school_id}/employees/{employee_id}/destroy", requirements={"school_id" = "\d+", "employee_id" = "\d+"}, name="back_schools_employees_destroy")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @ParamConverter("employee", class="BackBundle:Employee", options={"id" = "employee_id"})
+     * @Method({"DELETE"})
+     */
+    public function destroyAction(Request $request, School $school, Employee $employee) {
+        $user = $employee->getUser();
+
+        if (!$user->worksIn($school)) {
+            throw new AccessDeniedException();
+        }
+
+        if ($this->getUser() == $school->getUser()) {
+            $this->setFlash('alert', 'Vous êtes gérant de cette auto-école, vous ne pouvez pas vous supprimer.');
+
+            return $this->redirect($this->generateUrl('back_schools_employees', array('school_id' => $school->getId())));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($employee);
+        $em->flush();
+
+        $this->setFlash('notice', 'Employé supprimé');
+
+        return $this->redirect($this->generateUrl('back_schools_employees', array('school_id' => $school->getId())));
     }
 }
