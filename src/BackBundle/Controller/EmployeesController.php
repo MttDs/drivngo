@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\School;
@@ -77,5 +78,25 @@ class EmployeesController extends BaseController
         $this->setFlash('alert', "Impossible de créer cet employé");
 
         return $this->render('BackBundle:Employees:new.html.twig', array('school' => $school));
+    }
+
+    /**
+     * @Route("/schools/{school_id}/employees/{user_id}/edit", name="back_schools_employees_edit", requirements={"school_id" = "\d+", "user_id" = "\d+"})
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @ParamConverter("user", class="UserBundle:User", options={"id" = "user_id"})
+     * @Method({"GET"})
+     */
+    public function editAction(School $school, User $user)
+    {
+        if (!$user->worksIn($school)) {
+            throw new AccessDeniedException();
+        }
+
+        $form = $this->createForm(EmployeeType::class, $user);
+
+        return $this->render('BackBundle:Employees:edit.html.twig', array(
+            'school' => $school,
+            'form'   => $form->createView()));
     }
 }

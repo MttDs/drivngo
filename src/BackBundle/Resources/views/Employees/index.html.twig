@@ -36,7 +36,11 @@
                         <td>{{ employee.user.firstName }}</td>
                         <td>{{ employee.user.lastName }}</td>
                         <td>{{ employee.user.email }}</td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('back_schools_employees_edit', { school_id: school.id, user_id: employee.user.id }) }}">
+                                Mettre à jour
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
