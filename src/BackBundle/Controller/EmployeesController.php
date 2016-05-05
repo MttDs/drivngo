@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\School;
 use UserBundle\Entity\User;
-use BackBundle\Entity\Employees;
+use BackBundle\Entity\Employee;
 use BackBundle\Form\EmployeeType;
 
 class EmployeesController extends BaseController
@@ -40,5 +40,42 @@ class EmployeesController extends BaseController
         return $this->render('BackBundle:Employees:new.html.twig', array(
             'school' => $school,
             'form'   => $form->createView()));
+    }
+
+     /**
+     * @Route("/schools/{school_id}/employees/create", name="back_schools_employees_create", requirements={"school_id" = "\d+"})
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request, School $school) {
+        $user = new User();
+
+        $form = $this->createForm(EmployeeType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user->setEnabled(true);
+
+            $em->persist($user);
+            $em->flush();
+
+            $employee = new Employee();
+
+            $employee->setSchool($school);
+            $employee->setUser($user);
+            $employee->setActive(true);
+
+            $em->persist($employee);
+            $em->flush();
+
+
+            $this->setFlash('notice', "Employé crée !");
+            return $this->redirect($this->generateUrl('back_schools_employees', array('school_id' => $school->getId())));
+        }
+
+        $this->setFlash('alert', "Impossible de créer cet employé");
+
+        return $this->render('BackBundle:Employees:new.html.twig', array('school' => $school));
     }
 }
