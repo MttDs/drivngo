@@ -17,6 +17,14 @@ $ php app/console server:start
 $ run http://127.0.0.1:8000/
 ```
 
+## Accounts
+
+- login: admin, password: soleil
+- login: moniteur, password: soleil
+- login: manager, password: soleil
+- login: secretaire, password: soleil
+- login: user, password: soleil
+
 ## Pages
 
 ### Front
@@ -37,6 +45,12 @@ $ run http://127.0.0.1:8000/
 * (manager) /dashboard/schools/create
 * (manager) /dashboard/schools/{id}/pricings
 * (manager / secretary) /dashboard/schools/{id}/students
+* (manager) /dashboard/schools/{id}/employees
+* (manager) /dashboard/schools/{id}/employees/new
+* (manager) /dashboard/schools/{id}/employees/{id}/edit
+* POST | (manager) /dashboard/schools/{id}/employees/{id}/update
+* POST | (manager) /dashboard/schools/{id}/employees/create
+* DELETE | (manager) /dashboard/schools/{id}/employees/{id}/destroy
 * POST | (manager / secretary) /dashboard/schools/{id}/students
 * (super admin) /dashboard/schools/{id}/ads
 
