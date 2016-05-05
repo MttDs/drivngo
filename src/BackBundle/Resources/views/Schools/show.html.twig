@@ -79,7 +79,16 @@
                 {{ form_end(destroyForm, { render_rest: false }) }}
             </div>
         </div>
-            <br/>
+
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-primary" href="{{ path('back_schools_employees', { school_id: school.id }) }}">Voir les employés</a>
+            </div>
+        </div>
+
+        <br/>
 
     {% endif %}
 
