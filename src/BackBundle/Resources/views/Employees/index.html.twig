@@ -1,0 +1,51 @@
+{% extends "dashboard.html.twig" %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Votre auto école <small>{{ school.name }}</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> {{ school.name }}
+                </li>
+                <li class="active">
+                    <i class="fa"></i> Les employés
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-right">
+            <a href="{{ path('back_schools_employees_new', { school_id: school.id }) }}" class="btn btn-success">Ajouter un employé</a>
+        </div>
+        <br/>
+        <br/>
+        <div class="col-lg-12">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Modifier</th>
+                </tr>
+                {% for employee in school.employees %}
+                    <tr>
+                        <td>{{ employee.user.firstName }}</td>
+                        <td>{{ employee.user.lastName }}</td>
+                        <td>{{ employee.user.email }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('back_schools_employees_edit', { school_id: school.id, employee_id: employee.id }) }}">
+                                Mettre à jour
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+    </div>
+{% endblock %}

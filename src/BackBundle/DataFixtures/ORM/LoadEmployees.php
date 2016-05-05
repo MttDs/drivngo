@@ -19,6 +19,13 @@ class LoadEmployees extends AbstractFixture implements OrderedFixtureInterface {
         $manager->persist($employee);
 
         $employee = new Employee();
+        $employee->setSchool($this->getReference('cluny'));
+        $employee->setUser($this->getReference('manager'));
+        $employee->setActive(true);
+        $manager->persist($employee);
+
+
+        $employee = new Employee();
         $employee->setSchool($this->getReference('mouffetard'));
         $employee->setUser($this->getReference('instructor'));
         $employee->setActive(true);
