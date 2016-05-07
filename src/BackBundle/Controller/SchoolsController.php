@@ -85,14 +85,8 @@ class SchoolsController extends BaseController
      */
     public function showAction(Request $request, School $school)
     {
-        $destroyForm = $this->createForm(SchoolType::class, $school, array(
-                'method' => 'DELETE'
-            )
-        );
-
         return $this->render('BackBundle:Schools:show.html.twig', array(
-                'school'      => $school,
-                'destroyForm' => $destroyForm->createView()
+                'school'      => $school
             )
         );
 
@@ -161,11 +155,24 @@ class SchoolsController extends BaseController
      * @Route("/{id}/destroy", requirements={"id" = "\d+"}, name="back_schools_destroy")
      * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
-     * @Method({"DELETE"})
+     * @Method({"GET", "DELETE"})
      */
     public function destroyAction(Request $request, School $school) {
         $token = $request->request->get('school')['_token'];
         $csrf = $this->get('form.csrf_provider');
+
+        if ($request->isMethod('GET')) {
+            $destroyForm = $this->createForm(SchoolType::class, $school, array(
+                    'method' => 'DELETE'
+                )
+            );
+
+            return $this->render('BackBundle:Schools:delete.html.twig', array(
+                    'school'      => $school,
+                    'destroyForm' => $destroyForm->createView()
+                )
+            );
+        }
 
         if ($csrf->isCsrfTokenValid('school_type', $token)) {
             $em = $this->getDoctrine()->getManager();

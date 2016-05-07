@@ -59,11 +59,21 @@
                     </div>
                 {% endfor %}
             {% endif %}
-        {% elseif is_granted('ROLE_USER') %}
-            <div class="col-md-4 col-md-offset-4">
-                <p>Vous n'etes pas encore inscrit. Démarrer maintenant votre apprentissage</p>
-                <button class="btn btn-primary btn-lg btn-block">Trouver une auto école</button>
-            </div>
+        {% elseif (is_granted('ROLE_USER') and not is_granted('ROLE_SECRETARY') and not is_granted('ROLE_INSTRUCTOR')) %}
+            {% if app.user.students|length == 0 %}
+                <div class="col-md-4 col-md-offset-4">
+                    <p>Vous n'etes pas encore inscrit. Démarrer dès maintenant votre apprentissage</p>
+                    <a class="btn btn-primary btn-lg btn-block" href="{{ path('front_schools') }}">Trouver une auto école</a>
+                </div>
+            {% else %}
+                {% for student in app.user.students %}
+                    <div class="col-md-4">
+                        <h2>{{ student.school.name }}</h2>
+                        <p>{{ student.school.description }}</p>
+                        <a class="btn btn-primary" href="{{ path('back_schools_show', { id: student.school.id }) }}">Suivre ma formation</a>
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
