@@ -159,37 +159,49 @@
                     </li>
                     {% if (is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR')) and (is_granted('ROLE_SUPER_ADMIN') == false) %}
                         <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#schools"><i class="fa fa-fw fa-list"></i> Mes auto écoles <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="schools" class="collapse">
-                                {% for employee in app.user.employees %}
-                                    <li>
-                                        <a href="{{ path('back_schools_show', { id: employee.school.id }) }}">{{ employee.school.name }}</a>
-                                    </li>
-                                {% endfor %}
+                            <a href="{{ path('back_schools_show', { id: school.id }) }}">
+                            <i class="fa fa-fw fa-bar-chart-o"></i>  {{ school.name }}</a>
+                        </li>
+                    {% endif %}
+
+                    {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}
+                        <li>
+                            <a href="{{ path('back_schools_students', { school_id: school.id }) }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Les étudiants</a>
+                       </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#pricings"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tarification <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="pricings" class="collapse">
                                 <li>
-                                    <a href="{{ path('back_schools_new') }}">Créer une auto école</a>
+                                    <a href="{{ path('back_schools_pricings', { school_id: school.id }) }}">Les tarifs</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('back_schools_pricings_new', { school_id: school.id }) }}">Nouveau</a>
                                 </li>
                             </ul>
                         </li>
-                    {% endif %}
-                    {% if (is_granted('ROLE_USER') and not is_granted('ROLE_SECRETARY') and not is_granted('ROLE_INSTRUCTOR')) %}
                         <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#student_schools"><i class="fa fa-fw fa-list"></i> Mes auto écoles <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="student_schools" class="collapse">
-                                {% for student in app.user.students %}
-                                    <li>
-                                        <a href="{{ path('back_schools_show', { id: student.school.id }) }}">{{ student.school.name }}</a>
-                                    </li>
-                                {% endfor %}
+                            <a href="javascript:;" data-toggle="collapse" data-target="#employees"><i class="fa fa-users" aria-hidden="true"></i> Employés <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="employees" class="collapse">
                                 <li>
-                                    <a href="{{ path('front_schools') }}">Trouver une auto-école</a>
+                                    <a href="{{ path('back_schools_employees', { school_id: school.id }) }}">Les employés</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('back_schools_employees_new', { school_id: school.id }) }}">Nouveau</a>
                                 </li>
                             </ul>
                         </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <li>
-                            <a href="{{ path('back_schools_ads') }}"><i class="fa fa-fw fa-edit"></i> Publicité</a>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#parameters"><i class="fa fa-fw fa-wrench"></i> Paramètres <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="parameters" class="collapse">
+                                <li>
+                                    <a href="{{ path('back_schools_edit', { id: school.id }) }}">Mettre à jour</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('back_schools_destroy', { id: school.id }) }}">Supprimer</a>
+                                </li>
+                            </ul>
                         </li>
                     {% endif %}
                 </ul>

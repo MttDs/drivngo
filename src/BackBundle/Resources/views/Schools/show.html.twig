@@ -1,4 +1,4 @@
-{% extends "dashboard.html.twig" %}
+{% extends "school_dashboard.html.twig" %}
 
 {% block javascripts %}
     {% javascripts '@BackBundle/Resources/public/js/dashboard_payment_school_chart.js' %}
@@ -64,40 +64,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Actions</h2>
-            </div>
-            <div class="col-md-6">
-                <a class="btn btn-primary" href="{{ path('back_schools_edit', { id: school.id }) }}">Editer</a>
-                <a class="btn btn-primary" href="{{ path('back_schools_pricings', { school_id: school.id }) }}">Les tarifs</a>
-            </div>
-            <div class="col-md-6 text-right">
-                {{ form_start(destroyForm, { action: path('back_schools_destroy', { id: school.id }) }) }}
-                    {{ form_widget(destroyForm._token) }}
-                    <button class="btn btn-danger">Supprimer</button>
-                {{ form_end(destroyForm, { render_rest: false }) }}
-            </div>
-        </div>
 
         <br/>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-primary" href="{{ path('back_schools_employees', { school_id: school.id }) }}">Voir les employés</a>
-            </div>
-        </div>
-
-        <br/>
-
-    {% endif %}
-
-    {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}
-        <div class="row">
-            <div class="col-md-6">
-                <a href="{{ path('back_schools_students', { school_id: school.id }) }}" class="btn btn-primary">Voir les étudiants</a>
-            </div>
-        </div>
     {% endif %}
 
 {% endblock %}

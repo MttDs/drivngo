@@ -35,6 +35,21 @@ class PricingsController extends BaseController
     }
 
     /**
+     * @Route("/pricings/create", name="back_schools_pricings_new")
+     * @Security("has_role('ROLE_MANAGER')")
+     * @ParamConverter("school_manager")
+     * @Method({"GET"})
+     */
+    public function newAction(Request $request, School $school) {
+        $form = $this->createForm(PricingType::class, new Pricing());
+
+        return $this->render('BackBundle:Pricings:new.html.twig', array(
+                'school' => $school,
+                'form' => $form->createView()
+            )
+        );
+    }
+    /**
      * @Route("/pricings/create", name="back_schools_pricings_create")
      * @Security("has_role('ROLE_MANAGER')")
      * @ParamConverter("school_manager")
@@ -60,7 +75,7 @@ class PricingsController extends BaseController
 
         $this->setFlash('alert', "Impossible d'ajouter ce tarif");
 
-        return $this->render('BackBundle:Pricings:index.html.twig', array(
+        return $this->render('BackBundle:Pricings:new.html.twig', array(
                 'school' => $school,
                 'form' => $form->createView()
             )
