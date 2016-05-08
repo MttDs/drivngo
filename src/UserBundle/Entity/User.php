@@ -53,6 +53,11 @@ class User extends BaseUser
      */
     private $students;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Report", mappedBy="user")
+     */
+    private $ratings;
+
     private $role;
 
     public function __construct()
