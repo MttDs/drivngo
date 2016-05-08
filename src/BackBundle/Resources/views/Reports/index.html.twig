@@ -1,0 +1,55 @@
+{% extends "::school_dashboard.html.twig" %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {{ school.name }}<small>Etudiants</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
+                </li>
+                <li class="active">
+                    Etudiants
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Etat</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for student in school.students %}
+                    <tr>
+                        <td>{{ student.user.firstname }}</td>
+                        <td>{{ student.user.lastname }}</td>
+                        <td>{{ student.user.email }}</td>
+                        <td>
+                            <form method="POST" action="{{ path('back_schools_students_change', { school_id: school.id, id: student.id }) }}">
+                                <label for="status">En cours d'apprentissage</label>
+                                {% if student.active %}
+                                    <input type="checkbox" name="active" checked="checked" id="status"/>
+                                {% else %}
+                                    <input type="checkbox" name="active" id="status"/>
+                                {% endif %}
+                                <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock %}
