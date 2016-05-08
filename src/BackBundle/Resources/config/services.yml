@@ -9,3 +9,8 @@ services:
         arguments: [@security.context, @doctrine.orm.entity_manager]
         tags:
             - { name: request.param_converter }
+    back_bundle.in_school_paramconverter:
+        class: BackBundle\ParamConverter\InSchoolParamConverter
+        arguments: [@security.context, @doctrine.orm.entity_manager]
+        tags:
+            - { name: request.param_converter }
