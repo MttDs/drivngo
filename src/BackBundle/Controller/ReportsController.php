@@ -16,14 +16,28 @@ class ReportsController extends BaseController
 {
     /**
      * @Route("/schools/{school_id}/reports", name="back_schools_reports", requirements={"school_id" = "\d+"})
-     * @Security("has_role('ROLE_USER', 'ROLE_INSCRUCTOR')")
+     * @Security("is_granted('ROLE_USER')")
      * @ParamConverter("in_school")
      * @Method({"GET"})
      */
     public function indexAction(Request $request, School $school)
     {
+        $user = $this->getUser();
+
+        if ($user->hasRole('ROLE_INSTRUCTOR')) {
+            $studentRepo = $this->getRepository('BackBundle:Student');
+
+            $persons = $studentRepo->findBySchool($school);
+        }
+        else {
+            $employeeRepo = $this->getRepository('BackBundle:Employee');
+
+            $persons = $employeeRepo->findBySchoolAndRole($school, 'ROLE_INSTRUCTOR');
+        }
+
         return $this->render('BackBundle:Reports:index.html.twig', array(
-                'school' => $school
+                'school' => $school,
+                'persons' => $persons
             )
         );
     }

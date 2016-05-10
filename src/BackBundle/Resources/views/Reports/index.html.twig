@@ -26,26 +26,15 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Email</th>
-                    <th>Etat</th>
                 </tr>
             </thead>
             <tbody>
 
-                {% for student in school.students %}
+                {% for person in persons %}
                     <tr>
-                        <td>{{ student.user.firstname }}</td>
-                        <td>{{ student.user.lastname }}</td>
-                        <td>{{ student.user.email }}</td>
-                        <td>
-                            <form method="POST" action="{{ path('back_schools_students_change', { school_id: school.id, id: student.id }) }}">
-                                <label for="status">En cours d'apprentissage</label>
-                                {% if student.active %}
-                                    <input type="checkbox" name="active" checked="checked" id="status"/>
-                                {% else %}
-                                    <input type="checkbox" name="active" id="status"/>
-                                {% endif %}
-                                <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
-                        </td>
+                        <td>{{ person.user.firstname }}</td>
+                        <td>{{ person.user.lastname }}</td>
+                        <td>{{ person.user.email }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

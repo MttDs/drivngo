@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class StudentRepository extends EntityRepository
 {
+    public function findBySchool($school)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('s')
+            ->from($this->_entityName, 's')
+            ->where('s.school = :school and s.active = true')
+            ->setParameter('school', $school);
+
+        return $qb->getQuery()->getResult();
+    }
 }
