@@ -43,6 +43,10 @@ class InSchoolParamConverter implements ParamConverterInterface
 
         $school = $schoolRepo->find($request->get('school_id'));
 
+        if (is_null($school)) {
+            throw new AccessDeniedException();
+        }
+
         foreach ($school->getStudents() as $student) {
             if ($student->getSchool() == $student && $student->getActive() == true) {
                 $request->attributes->set('school', $school);
