@@ -48,7 +48,7 @@ class InSchoolParamConverter implements ParamConverterInterface
         }
 
         foreach ($school->getStudents() as $student) {
-            if ($student->getSchool() == $student && $student->getActive() == true) {
+            if ($student->getSchool() == $school && $student->getActive() == true) {
                 $request->attributes->set('school', $school);
 
                 return;
