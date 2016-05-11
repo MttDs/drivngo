@@ -151,4 +151,73 @@ class Report
     {
         return $this->createdAt;
     }
+
+    /**
+     * Set voter
+     *
+     * @param \UserBundle\Entity\User $voter
+     * @return Report
+     */
+    public function setVoter(\UserBundle\Entity\User $voter)
+    {
+        $this->voter = $voter;
+
+        return $this;
+    }
+
+    /**
+     * Get voter
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getVoter()
+    {
+        return $this->voter;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     * @return Report
+     */
+    public function setUser(\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \AppBundle\Entity\School $school
+     * @return Report
+     */
+    public function setSchool(\AppBundle\Entity\School $school)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \AppBundle\Entity\School 
+     */
+    public function getSchool()
+    {
+        return $this->school;
+    }
 }
