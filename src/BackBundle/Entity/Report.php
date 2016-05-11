@@ -26,6 +26,12 @@ class Report
      * @var float
      *
      * @ORM\Column(name="rating", type="float")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 5,
+     *      minMessage = "La note minimum doit être de {{ limit }}",
+     *      maxMessage = "La note maximum doit être de {{ limit }}"
+     * )
      */
     private $rating;
 
