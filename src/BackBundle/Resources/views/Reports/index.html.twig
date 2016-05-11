@@ -12,7 +12,11 @@
                     <i class="fa fa-dashboard"></i> <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
                 </li>
                 <li class="active">
-                    Etudiants
+                    {% if is_granted('ROLE_INSTRUCTOR') %}
+                        Vos élèves
+                    {% else %}
+                        Vos moniteurs
+                    {% endif %}
                 </li>
             </ol>
         </div>
@@ -26,6 +30,7 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Email</th>
+                    <th>Noter</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +40,7 @@
                         <td>{{ person.user.firstname }}</td>
                         <td>{{ person.user.lastname }}</td>
                         <td>{{ person.user.email }}</td>
+                        <td><a class="btn btn-default" href="{{ path('back_schools_reports_new', { school_id: school.id, user_id: person.user.id }) }}">Noter</a>
                     </tr>
                 {% endfor %}
             </tbody>
