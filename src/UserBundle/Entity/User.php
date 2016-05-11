@@ -266,4 +266,38 @@ class User extends BaseUser
     {
         return $this->role;
     }
+
+
+    /**
+     * Add ratings
+     *
+     * @param \BackBundle\Entity\Report $ratings
+     * @return User
+     */
+    public function addRating(\BackBundle\Entity\Report $ratings)
+    {
+        $this->ratings[] = $ratings;
+
+        return $this;
+    }
+
+    /**
+     * Remove ratings
+     *
+     * @param \BackBundle\Entity\Report $ratings
+     */
+    public function removeRating(\BackBundle\Entity\Report $ratings)
+    {
+        $this->ratings->removeElement($ratings);
+    }
+
+    /**
+     * Get ratings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRatings()
+    {
+        return $this->ratings;
+    }
 }
