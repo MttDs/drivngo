@@ -30,6 +30,7 @@
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Email</th>
+                    <th>Note</th>
                     <th>Noter</th>
                 </tr>
             </thead>
@@ -40,6 +41,13 @@
                         <td>{{ person.user.firstname }}</td>
                         <td>{{ person.user.lastname }}</td>
                         <td>{{ person.user.email }}</td>
+                        <td>
+                            {% if person.user.ratings|length != 0 %}
+                                {{ person.user.note }} / 5 ({{ person.user.ratings|length }} note(s))
+                            {% else %}
+                                <i>Pas encore noté</i>
+                            {% endif %}
+                        </td>
                         <td><a class="btn btn-default" href="{{ path('back_schools_reports_new', { school_id: school.id, user_id: person.user.id }) }}">Noter</a>
                     </tr>
                 {% endfor %}

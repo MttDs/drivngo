@@ -294,10 +294,25 @@ class User extends BaseUser
     /**
      * Get ratings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRatings()
     {
         return $this->ratings;
+    }
+
+    public function getNote() {
+        $nbNote = count($this->getRatings());
+        $sum = 0;
+
+        if (0 == $nbNote) {
+            return false;
+        }
+
+        foreach ($this->getRatings() as $rating) {
+            $sum += $rating->getRating();
+        }
+
+        return round(($sum/$nbNote), 2);
     }
 }
