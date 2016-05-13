@@ -52,6 +52,9 @@ $ run http://127.0.0.1:8000/
 * POST | (manager) /dashboard/schools/{id}/employees/create
 * DELETE | (manager) /dashboard/schools/{id}/employees/{id}/destroy
 * POST | (manager / secretary) /dashboard/schools/{id}/students
+* (user / instructor) /dashboard/schools/{id}/reports
+* (user / instructor) /dashboard/schools/{id}/reports/{user_id}/new
+* (user / instructor) /dashboard/schools/{id}/reports/show
 * (super admin) /dashboard/schools/{id}/ads
 
 ### Bundle 
@@ -67,6 +70,7 @@ $ run http://127.0.0.1:8000/
 * Students
 * Employees
 * AdType
+* Reports
 
 ## Admin design
 
