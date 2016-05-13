@@ -102,4 +102,33 @@ class ReportsController extends BaseController
             )
         );
     }
+
+    /**
+     * @Route("/schools/{school_id}/reports/show", name="back_schools_reports_show", requirements={"school_id" = "\d+"})
+     * @Security("is_granted('ROLE_USER')")
+     * @ParamConverter("in_school")
+     * @Method({"GET"})
+     */
+    public function showAction(Request $request, School $school)
+    {
+        $reportRepo = $this->getRepository('BackBundle:Report');
+        $reports = $reportRepo->findBySchoolAndUser($school, $this->getUser());
+
+        $note = 0;
+
+        foreach ($reports as $report) {
+            $note += $report->getRating();
+        }
+
+        if (0 != $note) {
+            $note = round($note/count($reports), 2);
+        }
+
+        return $this->render('BackBundle:Reports:show.html.twig', array(
+                'school'    => $school,
+                'note'      => $note,
+                'reports'   => $reports,
+            )
+        );
+    }
 }
