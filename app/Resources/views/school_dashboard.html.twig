@@ -169,6 +169,14 @@
                             <a href="{{ path('back_schools_students', { school_id: school.id }) }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Les étudiants</a>
                        </li>
                     {% endif %}
+
+                    {% if ((is_granted('ROLE_INSTRUCTOR') or (is_granted('ROLE_USER')) and not is_granted('ROLE_SECRETARY'))) %}
+                        <li>
+                            <a href="{{ path('back_schools_reports', { school_id: school.id }) }}"><i class="fa fa-smile-o" aria-hidden="true"></i>
+ Notation</a>
+                       </li>
+                    {% endif %}
+
                     {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#pricings"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tarification <i class="fa fa-fw fa-caret-down"></i></a>

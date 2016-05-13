@@ -9,6 +9,7 @@ use AppBundle\Entity\School;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser
 {
@@ -52,6 +53,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="user")
      */
     private $students;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Report", mappedBy="user")
+     */
+    private $ratings;
 
     private $role;
 
@@ -259,5 +265,54 @@ class User extends BaseUser
     public function getRole()
     {
         return $this->role;
+    }
+
+
+    /**
+     * Add ratings
+     *
+     * @param \BackBundle\Entity\Report $ratings
+     * @return User
+     */
+    public function addRating(\BackBundle\Entity\Report $ratings)
+    {
+        $this->ratings[] = $ratings;
+
+        return $this;
+    }
+
+    /**
+     * Remove ratings
+     *
+     * @param \BackBundle\Entity\Report $ratings
+     */
+    public function removeRating(\BackBundle\Entity\Report $ratings)
+    {
+        $this->ratings->removeElement($ratings);
+    }
+
+    /**
+     * Get ratings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRatings()
+    {
+        return $this->ratings;
+    }
+
+    public function getNote() {
+        $nbNote = count($this->getRatings());
+        $sum = 0;
+
+        if (0 == $nbNote) {
+            return false;
+        }
+
+        foreach ($this->getRatings() as $rating) {
+            $sum += $rating->getRating();
+        }
+
+        return round(($sum/$nbNote), 2);
     }
 }
