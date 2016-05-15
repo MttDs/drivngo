@@ -1,0 +1,20 @@
+{% extends "::school_dashboard.html.twig" %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {{ school.name }}<small>Etudiants</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> <a href="{{ path('back_schools_show', { id: school.id }) }}">{{ school.name }}</a>
+                </li>
+                <li class="active">
+                    E-learning
+                </li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
