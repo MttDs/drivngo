@@ -56,6 +56,7 @@ $ run http://127.0.0.1:8000/
 * (user / instructor) /dashboard/schools/{id}/reports/{user_id}/new
 * (user / instructor) /dashboard/schools/{id}/reports/show
 * (super admin) /dashboard/schools/{id}/ads
+* (student + elearning & active = true) /dashboard/elearning
 
 ### Bundle 
 
