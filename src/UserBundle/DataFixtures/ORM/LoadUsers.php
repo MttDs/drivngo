@@ -34,7 +34,7 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface {
         $user->setPlainPassword('soleil');
         $user->setEmail('user@gmail.com');
         $user->setEnabled(true);
-        $user->setRoles(array('ROLE_USER'));
+        $user->setRoles(array('ROLE_STUDENT'));
 
         $this->addReference('user', $user);
 

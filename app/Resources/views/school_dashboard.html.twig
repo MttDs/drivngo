@@ -177,6 +177,22 @@
                        </li>
                     {% endif %}
 
+                    {% if is_granted('ROLE_STUDENT') %}
+                        {% set elearning = false %}
+
+                        {% for student in app.user.students %}
+                            {% if (student.school == school) and (student.active) and (student.eLearning) %}
+                                {% set elearning = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if elearning %}
+                            <li>
+                                <a href="{{ path('back_elearning', { school_id: school.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i>E-learning</a>
+                           </li>
+                        {% endif %}
+                    {% endif %}
+
                     {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#pricings"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Tarification <i class="fa fa-fw fa-caret-down"></i></a>

@@ -42,14 +42,25 @@ class PaymentsController extends BaseController
             $em->flush();
 
             if (!is_null($payment->getId())) {
-                $student = new Student();
-                $student->setSchool($school);
-                $student->setUser($this->getUser());
-                $student->setActive(false);
+                $user = $this->getUser();
+                $user->setRoles(array('ROLE_STUDENT'));
+                $em->persist($user);
 
-                $em->persist($student);
+                $studentRepo = $this->getRepository('BackBundle:student');
+
+                $student = $studentRepo->findBy(array('school' => $school, 'user' => $user));
+
+                if (!$student) {
+                    $student = new Student();
+                    $student->setSchool($school);
+                    $student->setUser($this->getUser());
+                    $student->setActive(false);
+                    $student->setElearning(false);
+
+                    $em->persist($student);
+                }
+
                 $em->flush();
-
                 $this->setFlash('notice', "Transaction effecutée. Elle sera validée prochainement par l'auto-école");
 
                 return $this->redirect($this->generateUrl('front_schools_show', array('id' => $school->getId())));

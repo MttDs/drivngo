@@ -39,20 +39,30 @@ class StudentsController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (null !== $request->request->get('active') && $request->request->get('active') == "on"){
-            $this->setFlash('notice', "L'utilisateur ".$employee->getUser()->getFirstname()." ".$employee->getUser()->getLastname() ." a été activé.");
-
+        if ($this->isChecked('active'))
             $employee->setActive(true);
-        }
-        else {
-            $this->setFlash('notice', "L'utilisateur ".$employee->getUser()->getFirstname()." ".$employee->getUser()->getLastname() ." a été désactivé.");
-
+        else
             $employee->setActive(false);
-        }
+
+        if ($this->isChecked('elearning'))
+            $employee->setELearning(true);
+        else
+            $employee->setELearning(false);
+
+        $this->setFlash('notice', "L'utilisateur ".$employee->getUser()->getFirstname()." ".$employee->getUser()->getLastname() ." a été mis à jour.");
 
         $em->persist($employee);
         $em->flush();
 
         return $this->redirect($this->generateUrl('back_schools_students', array('school_id' => $school->getId())));
+    }
+
+    private function isChecked($attribute) {
+        $request = $this->getRequest();
+
+        if (null !== $request->request->get($attribute) && "on" == $request->request->get($attribute))
+            return true;
+
+        return false;
     }
 }

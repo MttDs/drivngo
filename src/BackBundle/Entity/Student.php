@@ -46,6 +46,13 @@ class Student
     private $active;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="e_learning", type="boolean", options={"default":0})
+     */
+    private $eLearning;
+
+    /**
      * Get id
      *
      * @return integer
@@ -122,5 +129,28 @@ class Student
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set eLearning
+     *
+     * @param boolean $eLearning
+     * @return Student
+     */
+    public function setELearning($eLearning)
+    {
+        $this->eLearning = $eLearning;
+
+        return $this;
+    }
+
+    /**
+     * Get eLearning
+     *
+     * @return boolean 
+     */
+    public function getELearning()
+    {
+        return $this->eLearning;
     }
 }
