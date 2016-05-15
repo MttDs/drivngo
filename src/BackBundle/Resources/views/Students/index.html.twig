@@ -43,7 +43,14 @@
                                 {% else %}
                                     <input type="checkbox" name="active" id="status"/>
                                 {% endif %}
+                                <label for="elearning">Code en ligne</label>
+                                {% if student.elearning %}
+                                    <input type="checkbox" name="elearning" checked="checked" id="elearning"/>
+                                {% else %}
+                                    <input type="checkbox" name="elearning" id="elearning"/>
+                                {% endif %}
                                 <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}
