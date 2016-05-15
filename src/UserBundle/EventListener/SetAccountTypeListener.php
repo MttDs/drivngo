@@ -26,7 +26,7 @@ class SetAccountTypeListener implements EventSubscriberInterface
             $user->setRoles(array('ROLE_MANAGER'));
         }
         else {
-            $user->setRoles(array('ROLE_USER'));
+            $user->setRoles(array('ROLE_STUDENT'));
         }
     }
 }

@@ -46,6 +46,7 @@ class PaymentsController extends BaseController
                 $student->setSchool($school);
                 $student->setUser($this->getUser());
                 $student->setActive(false);
+                $student->setElearning(false);
 
                 $em->persist($student);
                 $em->flush();
