@@ -16,6 +16,7 @@ class LoadStudents extends AbstractFixture implements OrderedFixtureInterface {
         $student->setSchool($this->getReference('mouffetard'));
         $student->setUser($this->getReference('user'));
         $student->setActive(true);
+        $student->setELearning(true);
         $manager->persist($student);
 
         $manager->flush();
