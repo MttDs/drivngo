@@ -42,6 +42,10 @@ class PaymentsController extends BaseController
             $em->flush();
 
             if (!is_null($payment->getId())) {
+                $user = $this->getUser();
+                $user->setRoles(array('ROLE_STUDENT'));
+                $em->persist($user);
+
                 $student = new Student();
                 $student->setSchool($school);
                 $student->setUser($this->getUser());
