@@ -170,7 +170,7 @@
                        </li>
                     {% endif %}
 
-                    {% if ((is_granted('ROLE_INSTRUCTOR') or (is_granted('ROLE_USER')) and not is_granted('ROLE_SECRETARY'))) %}
+                    {% if ((is_granted('ROLE_INSTRUCTOR') or (is_granted('ROLE_USER')) and not is_granted('ROLE_SECRETARY')) and not is_granted('ROLE_MANAGER')) %}
                         <li>
                             <a href="{{ path('back_schools_reports', { school_id: school.id }) }}"><i class="fa fa-smile-o" aria-hidden="true"></i>
  Notation</a>
