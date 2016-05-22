@@ -85,8 +85,15 @@ class SchoolsController extends BaseController
      */
     public function showAction(Request $request, School $school)
     {
+        $ads = array();
+
+        foreach ($school->getAds() as $ad) {
+            $ads[$ad->getAdType()->getName()] = $ad;
+        }
+
         return $this->render('BackBundle:Schools:show.html.twig', array(
-                'school'      => $school
+                'school'      => $school,
+                'ads'         => $ads
             )
         );
 
