@@ -154,9 +154,12 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
+
                     <li class="active">
                         <a href="{{ path('back_dashboard_home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
+
+                   
                     {% if (is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR')) and (is_granted('ROLE_SUPER_ADMIN') == false) %}
                         <li>
                             <a href="{{ path('back_schools_show', { id: school.id }) }}">
@@ -167,6 +170,13 @@
                     {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}
                         <li>
                             <a href="{{ path('back_schools_students', { school_id: school.id }) }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Les étudiants</a>
+                       </li>
+                    {% endif %}
+
+                     {% if ((is_granted('ROLE_INSTRUCTOR') or (is_granted('ROLE_STUDENT')) and not is_granted('ROLE_SECRETARY')) and not is_granted('ROLE_MANAGER')) %}
+                        <li>
+                            <a href="{{ path('back_schools_plannings', { school_id: school.id }) }}"><i class="fa fa-calendar" aria-hidden="true"></i> 
+ Planning</a>
                        </li>
                     {% endif %}
 
@@ -228,6 +238,7 @@
                             </ul>
                         </li>
                     {% endif %}
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
