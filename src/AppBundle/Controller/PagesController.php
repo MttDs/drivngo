@@ -8,10 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PagesController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="front_home")
      */
     public function indexAction()
     {
         return $this->render('AppBundle:Pages:index.html.twig');
+    }
+
+    /**
+     * @Route("/nos-partenaires", name="front_partners")
+     */
+    public function partnersAction()
+    {
+        return $this->render('AppBundle:Pages:partners.html.twig');
     }
 }
