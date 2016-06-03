@@ -30,6 +30,7 @@ $ php app/console doctrine:fixtures:load
 * /
 * /auto-ecoles
 * /auto-ecoles/{id}
+* /nos-partenaires
 * POST | /auto-ecoles/{id}/payment/create
 
 ### Back
