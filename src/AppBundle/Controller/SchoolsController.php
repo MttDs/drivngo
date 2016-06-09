@@ -43,9 +43,16 @@ class SchoolsController extends BaseController
     public function showAction(School $school) {
         $paymentForm = $this->createForm(PaymentType::class, new Payment(), array('school_id' => $school->getId()));
 
+        $ads = array();
+
+        foreach ($school->getAds() as $ad) {
+            $ads[$ad->getAdType()->getName()] = $ad;
+        }
+
         return $this->render('AppBundle:Schools:show.html.twig', array(
                 'school'      => $school,
-                'paymentForm' => $paymentForm->createView()
+                'paymentForm' => $paymentForm->createView(),
+                'ads'         => $ads
             )
         );
     }

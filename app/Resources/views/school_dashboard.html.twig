@@ -239,6 +239,27 @@
                         </li>
                     {% endif %}
 
+<<<<<<< HEAD
+=======
+                    {% if is_granted('ROLE_STUDENT') %}
+                        {% for ad in school.ads %}
+                            <br/><br/>
+                            {% if ad.adType .name == "Sidebar1" %}
+                                <div class="col-md-12" style="margin-top: 20px">
+                                    <a target="_blank" href="{{ ad.url }}">
+                                        <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/>
+                                    </a>
+                                </div>
+                            {% elseif ad.adType.name == "Sidebar2" %}
+                                <div class="col-md-12" style="margin-top: 20px">
+                                    <a target="_blank" href="{{ ad.url }}">
+                                        <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ad.fileName) }}"/>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+>>>>>>> d06a94e849ce7cc5db90f1a41da63eeb52e682ee
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
