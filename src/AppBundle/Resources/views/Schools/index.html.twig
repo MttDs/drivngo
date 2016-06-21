@@ -1,13 +1,21 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>Liste des auto écoles</h1>
+    <div class="bloc grey">
+        <div class="container">
+            <h1>Liste des auto écoles</h1>
 
-    {% for school in schools %}
-        <h2>{{ school.name }}</h2>
-        <p>{{ school.description }}</p>
-        <a href="{{ path('front_schools_show', { id: school.id }) }}" class="btn btn-primary">Voir</a>
-    {% endfor %}
+            {% for school in schools %}
+                <div class="col-lg-4">
+                    <div class="school">
+                        <h2>{{ school.name }}</h2>
+                        <p>{{ school.description|slice(0, 100) }}...</p>
+                        <a href="{{ path('front_schools_show', { id: school.id }) }}" class="read-more">Voir</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-    {{ knp_pagination_render(schools) }}
+            {{ knp_pagination_render(schools) }}
+        </div>
+    </div>
 {% endblock %}

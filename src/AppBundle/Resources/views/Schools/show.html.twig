@@ -1,106 +1,107 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    <div class="row">
-        {% if ads['Header'] is defined %}
-            <a target="_blank" href="{{ ads['Header'].url }}">
-                <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Header'].fileName) }}"/>
-            </a>
-        {% endif %}
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            {% if ads['Sidebar1'] is defined %}
-                <br/>
-                <aside>
-                    <a target="_blank" href="{{ ads['Sidebar1'].url }}">
-                        <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Sidebar1'].fileName) }}"/>
-                    </a>
-                </aside>
-            {% endif %}
-
-            {% if ads['Sidebar2'] is defined %}
-                <br/>
-                <aside>
-                    <a target="_blank" href="{{ ads['Sidebar2'].url }}">
-                        <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Sidebar2'].fileName) }}"/>
-                    </a>
-                </aside>
-            {% endif %}
-        </div>
-        <div class="col-md-9">
-            <h1>{{ school.name }}</h1>
-
-            <p>{{ school.description }}</p>
-
-            {% if school.registrationPricings|length != 0 %}
-                {% if app.user %}
-                    <a href="#">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">
-                            S'inscrire à cette auto école
-                        </button>
-                    </a>
-                {% else %}
-                    <a class="btn btn-success" href={{ path('fos_user_security_login')}}>
-                        Connectez-vous pour vous inscrire
-                    </a>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        {% if ads['Footer'] is defined %}
-            <br/>
-            <aside>
-                <a target="_blank" href="{{ ads['Footer'].url }}">
-                    <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Footer'].fileName) }}"/>
+    <div class="container">
+        <div class="row">
+            {% if ads['Header'] is defined %}
+                <a target="_blank" href="{{ ads['Header'].url }}">
+                    <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Header'].fileName) }}"/>
                 </a>
-            </aside>
-        {% endif %}
-    </div>
-    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Valider votre inscription</h4>
-          </div>
-          {{ form_start(paymentForm, { attr: { action: path('front_schools_payments_create', { 'school_id': school.id }) }}) }}
-              <div class="modal-body">
-                    <div class="form-group">
-                        {{ form_label(paymentForm.pricing) }}
-                        {{ form_widget(paymentForm.pricing, { attr: { class: 'form-control' }} ) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(paymentForm.credit_card_number) }}
-                        {{ form_widget(paymentForm.credit_card_number, { attr: { class: 'form-control' }} ) }}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form_label(paymentForm.credit_card_month) }}
-                                {{ form_widget(paymentForm.credit_card_month, { attr: { class: 'form-control' }} ) }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{ form_label(paymentForm.credit_card_day) }}
-                                {{ form_widget(paymentForm.credit_card_day, { attr: { class: 'form-control' }} ) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(paymentForm.credit_card_code) }}
-                        {{ form_widget(paymentForm.credit_card_code, { attr: { class: 'form-control' }} ) }}
-                    </div>
-                </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-primary">Payer et valider</button>
-              </div>
-            {{ form_end(paymentForm) }}
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                {% if ads['Sidebar1'] is defined %}
+                    <br/>
+                    <aside>
+                        <a target="_blank" href="{{ ads['Sidebar1'].url }}">
+                            <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Sidebar1'].fileName) }}"/>
+                        </a>
+                    </aside>
+                {% endif %}
 
+                {% if ads['Sidebar2'] is defined %}
+                    <br/>
+                    <aside>
+                        <a target="_blank" href="{{ ads['Sidebar2'].url }}">
+                            <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Sidebar2'].fileName) }}"/>
+                        </a>
+                    </aside>
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h1>{{ school.name }}</h1>
+
+                <p>{{ school.description }}</p>
+
+                {% if school.registrationPricings|length != 0 %}
+                    {% if app.user %}
+                        <a href="#">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentModal">
+                                S'inscrire à cette auto école
+                            </button>
+                        </a>
+                    {% else %}
+                        <a class="btn btn-success" href={{ path('fos_user_security_login')}}>
+                            Connectez-vous pour vous inscrire
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            {% if ads['Footer'] is defined %}
+                <br/>
+                <aside>
+                    <a target="_blank" href="{{ ads['Footer'].url }}">
+                        <img class="img-responsive" style="margin: 0 auto" src="{{ asset('uploads/school_' ~ school.id ~ '/' ~ ads['Footer'].fileName) }}"/>
+                    </a>
+                </aside>
+            {% endif %}
+        </div>
+        <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Valider votre inscription</h4>
+                    </div>
+                    {{ form_start(paymentForm, { attr: { action: path('front_schools_payments_create', { 'school_id': school.id }) }}) }}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            {{ form_label(paymentForm.pricing) }}
+                            {{ form_widget(paymentForm.pricing, { attr: { class: 'form-control' }} ) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(paymentForm.credit_card_number) }}
+                            {{ form_widget(paymentForm.credit_card_number, { attr: { class: 'form-control' }} ) }}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(paymentForm.credit_card_month) }}
+                                    {{ form_widget(paymentForm.credit_card_month, { attr: { class: 'form-control' }} ) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(paymentForm.credit_card_day) }}
+                                    {{ form_widget(paymentForm.credit_card_day, { attr: { class: 'form-control' }} ) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(paymentForm.credit_card_code) }}
+                            {{ form_widget(paymentForm.credit_card_code, { attr: { class: 'form-control' }} ) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Payer et valider</button>
+                    </div>
+                    {{ form_end(paymentForm) }}
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
 {% endblock %}
