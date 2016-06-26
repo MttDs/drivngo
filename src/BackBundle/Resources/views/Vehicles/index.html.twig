@@ -18,6 +18,10 @@
         </div>
     </div>
 
+    <div class="text-right">
+        <a href="{{ path('back_schools_vehicles_new', { school_id: school.id }) }}" class="btn btn-success">Nouveau</a>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
         <table class="table table-hover">
@@ -34,11 +38,11 @@
             <tbody>
                 {% for vehicle in school.vehicles %}
                     <tr>
-                        <td>{{ student.user.brand }}</td>
-                        <td>{{ student.user.ref }}</td>
-                        <td>{{ student.user.type }}</td>
-                        <td>{{ student.user.lastCheck }}</td>
-                        <td>{{ student.user.kilometers }}</td>
+                        <td>{{ vehicle.brand }}</td>
+                        <td>{{ vehicle.ref }}</td>
+                        <td>{{ vehicle.type }}</td>
+                        <td>{{ vehicle.lastCheck|date('d-m-Y') }}</td>
+                        <td>{{ vehicle.kilometers }}</td>
                         <td>
                             <a href="" class="btn btn-primary">Editer</a>
                         </td>
