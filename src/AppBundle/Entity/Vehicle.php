@@ -49,7 +49,7 @@ class Vehicle
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="text", length=1000)
      */
     private $description;
 
@@ -246,7 +246,7 @@ class Vehicle
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -269,7 +269,7 @@ class Vehicle
     /**
      * Get school
      *
-     * @return \AppBundle\Entity\School 
+     * @return \AppBundle\Entity\School
      */
     public function getSchool()
     {
