@@ -103,6 +103,11 @@ class School
      */
     private $ads;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle", mappedBy="school")
+     */
+    private $vehicles;
+
     public function getRegistrationPricings()
     {
         $pricings = array();
@@ -453,10 +458,20 @@ class School
     /**
      * Get ads
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAds()
     {
         return $this->ads;
+    }
+
+    /**
+     * Get vehicles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVehicles()
+    {
+        return $this->vehicles;
     }
 }

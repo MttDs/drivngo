@@ -34,6 +34,14 @@
 
                 <p>{{ school.description }}</p>
 
+                {% if school.vehicles|length > 0 %}
+                    <h2 class="text-left">Les véhicules de cette auto-école</h2>
+                    {% for vehicle in school.vehicles %}
+                        <h3>{{ vehicle.brand}} - {{ vehicle.ref }}</h3>
+                        <p>{{ vehicle.description }}</p>
+                    {% endfor %}
+                {% endif %}
+
                 {% if school.registrationPricings|length != 0 %}
                     {% if app.user %}
                         <a href="#">

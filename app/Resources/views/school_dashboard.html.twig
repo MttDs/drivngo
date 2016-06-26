@@ -159,7 +159,7 @@
                         <a href="{{ path('back_dashboard_home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
 
-                   
+
                     {% if (is_granted('ROLE_SECRETARY') or is_granted('ROLE_INSTRUCTOR')) and (is_granted('ROLE_SUPER_ADMIN') == false) %}
                         <li>
                             <a href="{{ path('back_schools_show', { id: school.id }) }}">
@@ -175,7 +175,7 @@
 
                      {% if ((is_granted('ROLE_INSTRUCTOR') or (is_granted('ROLE_STUDENT')) and not is_granted('ROLE_SECRETARY')) and not is_granted('ROLE_MANAGER')) %}
                         <li>
-                            <a href="{{ path('back_schools_plannings', { school_id: school.id }) }}"><i class="fa fa-calendar" aria-hidden="true"></i> 
+                            <a href="{{ path('back_schools_plannings', { school_id: school.id }) }}"><i class="fa fa-calendar" aria-hidden="true"></i>
  Planning</a>
                        </li>
                     {% endif %}
@@ -201,6 +201,21 @@
                                 <a href="{{ path('back_elearning', { school_id: school.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true"></i>E-learning</a>
                            </li>
                         {% endif %}
+                    {% endif %}
+
+
+                    {% if ((is_granted('ROLE_MANAGER') or is_granted('ROLE_SECRETARY')) and app.user.worksIn(school)) %}
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#vehicles"><i class="fa fa-car" aria-hidden="true"></i></i> Vehicule <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="vehicles" class="collapse">
+                                <li>
+                                    <a href="{{ path('back_schools_vehicles', { school_id: school.id }) }}">Les vehicules</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('back_schools_vehicles_new', { school_id: school.id }) }}">Nouveau</a>
+                                </li>
+                            </ul>
+                        </li>
                     {% endif %}
 
                     {% if is_granted('ROLE_MANAGER') and app.user.id == school.user.id %}
@@ -257,6 +272,8 @@
                             {% endif %}
                         {% endfor %}
                     {% endif %}
+
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
