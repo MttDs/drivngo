@@ -56,6 +56,10 @@ $ php app/console doctrine:fixtures:load
 * (user / instructor) /dashboard/schools/{id}/reports/show
 * (super admin) /dashboard/schools/{id}/ads
 * (student + elearning & active = true) /dashboard/elearning
+* (secretary, manager) /dashboard/schools/{id}/vehicles
+* (secretary, manager) /dashboard/schools/{id}/vehicles/new
+* (secretary, manager) /dashboard/schools/{id}/vehicles/{id}/edit
+* POST | (secretary, manager) /dashboard/schools/{id}/vehicles/{id}/update
 
 ### Bundle 
 
@@ -71,6 +75,7 @@ $ php app/console doctrine:fixtures:load
 * Employees
 * AdType
 * Reports
+* Vehicle
 
 ## Admin design
 
