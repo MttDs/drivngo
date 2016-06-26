@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                {{ school.name }}<small>Vehicules</small>
+                Votre auto école <small>{{ school.name }}</small>
             </h1>
             <ol class="breadcrumb">
                 <li>
@@ -44,7 +44,7 @@
                         <td>{{ vehicle.lastCheck|date('d-m-Y') }}</td>
                         <td>{{ vehicle.kilometers }}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Editer</a>
+                            <a href="{{ path('back_schools_vehicles_edit', { school_id: school.id, vehicle_id: vehicle.id }) }}" class="btn btn-primary">Editer</a>
                         </td>
                     </tr>
                 {% endfor %}
