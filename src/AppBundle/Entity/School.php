@@ -464,4 +464,14 @@ class School
     {
         return $this->ads;
     }
+
+    /**
+     * Get vehicles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVehicles()
+    {
+        return $this->vehicles;
+    }
 }
