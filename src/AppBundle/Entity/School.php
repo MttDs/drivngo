@@ -79,32 +79,32 @@ class School
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Employee", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Employee", mappedBy="school", cascade={"remove"})
      */
     private $employees;
 
     /**
-     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="BackBundle\Entity\Student", mappedBy="school", cascade={"remove"})
      */
     private $students;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pricing", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pricing", mappedBy="school", cascade={"remove"})
      */
     private $pricings;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="school", cascade={"remove"})
      */
     private $payments;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="school", cascade={"remove"})
      */
     private $ads;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle", mappedBy="school")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Vehicle", mappedBy="school", cascade={"remove"})
      */
     private $vehicles;
 
