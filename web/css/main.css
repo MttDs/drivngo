@@ -193,3 +193,30 @@ h2 {
     margin: 20px;
     float: right;
 }
+
+.ad-bloc {
+    border: 1px solid #bdc3c7;
+    text-align: center;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.ads-mention {
+    font-size: 10px;
+}
+
+.school-content {
+    padding: 20px 50px;
+}
+
+img {
+    width: 100%;
+}
+
+.car-title {
+    font-size: 13px;
+}
+
+.car-bloc {
+    text-align: center;
+}

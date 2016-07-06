@@ -1,34 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Nos partenaires</h1>
+    <div class="bloc grey">
+        <div class="container">
+            <h1>Nos partenaires</h1>
 
-    <table class="table table-hover">
-        <tr>
-            <td>Code 3000</td>
-            <td><p>Préparation à l'examen officiel du code de la route, auto, moto et aux ASSR de 1er et 2d niveau</p>
-                <p class="text-right"><a href="http://www.code3000.net/index.php" class="btn btn-success" target="_blank">Découvrir</a></p></td>
-        </tr>
-        <tr>
-            <td>Prépacode</td>
-            <td><p>Le site conçu par ENPC et les professionnels de l'auto-école pour vous permettre de progresser à votre rythme, où vous voulez, quand vous voulez, tout en restant en liaison avec votre formateur. </p>
-            <p class="text-right"><a href="http://www.prepacode-enpc.fr/" class="btn btn-success" target="_blank">Découvrir</a></p></td>
-        </tr>
-        <tr>
-            <td>Groupama</td>
-            <td><p>Votre assurance auto en ligne et sur mesure ! Avec Groupama, découvrez l'assurance voiture adaptée à vos souhaits et à votre budget.</p><p>
-
-Avec 4 formules d'assurance automobile, des options au choix et une offre petit rouleur, vous êtes sûr de trouver une solution d'assurance auto qui vous convienne. N'hésitez pas à réaliser un devis assurance auto en ligne avant souscription pour connaître les tarifs de nos différentes formules.
- </p>
-                <p class="text-right"><a href="https://www.groupama.fr/auto/assurance-auto.html" class="btn btn-success" target="_blank">Découvrir</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Groupama</td>
-            <td><p>Une utopie en marche ? En tout cas une utopie qui a réussi à se développer et qui fonctionne bien. La Mutuelle des Motards est dorénavant le leader incontestable et incontesté de l'assurance 2-roues.</p>
-                <p class="text-right"><a href="http://www.mutuelledesmotards.fr/la-mutuelle-des-motards/la-mutuelle-aujourd-hui" class="btn btn-success" target="_blank">Découvrir</a>
-            </td>
-        </tr>
-    </table>
+            <div class="col-lg-4">
+                <div class="school">
+                    <h2>Code 3000</h2>
+                    <p>Préparation à l'examen officiel du code de la route, auto, moto et aux ASSR de 1er et 2nd niveau.</p>
+                    <a href="http://www.code3000.net/index.php" class="read-more">Découvrir</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="school">
+                    <h2>Prépacode</h2>
+                    <p>Le site conçu par ENPC et les professionnels de l'auto-école pour vous permettre de progresser à votre rythme..</p>
+                    <a href="http://www.prepacode-enpc.fr/" class="read-more">Découvrir</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="school">
+                    <h2>Groupama</h2>
+                    <p>Votre assurance auto en ligne et sur mesure ! Avec Groupama, découvrez l'assurance voiture adaptée.</p>
+                    <a href="https://www.groupama.fr/auto/assurance-auto.html" class="read-more">Découvrir</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="school">
+                    <h2>Groupama</h2>
+                    <p>Une utopie en marche ? En tout cas une utopie qui a réussi à se développer et qui fonctionne bien.</p>
+                    <a href="http://www.mutuelledesmotards.fr/la-mutuelle-des-motards/la-mutuelle-aujourd-hui" class="read-more">Découvrir</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
