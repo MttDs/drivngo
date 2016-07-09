@@ -166,9 +166,11 @@
                                         <a href="{{ path('back_schools_show', { id: employee.school.id }) }}">{{ employee.school.name }}</a>
                                     </li>
                                 {% endfor %}
+                                {% if is_granted('ROLE_MANAGER') %}
                                 <li>
                                     <a href="{{ path('back_schools_new') }}">Créer une auto école</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </li>
                     {% endif %}
