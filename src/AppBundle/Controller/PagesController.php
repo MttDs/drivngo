@@ -22,4 +22,12 @@ class PagesController extends Controller
     {
         return $this->render('AppBundle:Pages:partners.html.twig');
     }
+
+    /**
+     * @Route("/nous-contacter", name="front_contact")
+     */
+    public function contactAction()
+    {
+        return $this->render('AppBundle:Pages:contact.html.twig');
+    }
 }
