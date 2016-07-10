@@ -1,8 +1,73 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+<div class="container">
+    <h3>S'inscrire</h3>
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register form-horizontal'}}) }}
+
+    <div class="col-lg-9 contact-form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">Prénom</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.firstname, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.firstname) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Nom</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.lastname, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.lastname) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Pseudo</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.username, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.email, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Mot de passe</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.plainPassword.first, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.plainPassword) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Re - Mot de passe</label>
+            <div class="col-sm-10">
+                {{ form_widget(form.plainPassword.second, { attr: { class: 'form-control'}}) }}
+                {{ form_errors(form.plainPassword) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        {{ form_widget(form.manager) }} {{ form_label(form.manager) }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" id="_submit" name="_submit" class="btn btn-success">S'inscrire</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
     </div>
-{{ form_end(form) }}
+</div>
