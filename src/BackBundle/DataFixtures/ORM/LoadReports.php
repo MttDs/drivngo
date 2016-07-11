@@ -26,7 +26,7 @@ class LoadReports extends AbstractFixture implements OrderedFixtureInterface {
         $report->setVoter($this->getReference('instructor'));
         $report->setUser($this->getReference('user'));
         $report->setRating(2);
-        $report->setMessage('Travaillez les créneaux ! Restez toujours mettre de votre vehicule !');
+        $report->setMessage('Travaillez les créneaux ! Restez toujours maître de votre vehicule !');
         $report->setCreatedAt(new \DateTime());
 
         $manager->persist($report);
